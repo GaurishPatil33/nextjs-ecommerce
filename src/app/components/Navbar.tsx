@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import Searchbar from "./searchbar"
+import Searchbar from "./Searchbar"
 import { MdMenu } from "react-icons/md";
 import Mobilemenu from "./Mobilemenu"
 import { FaCartShopping } from "react-icons/fa6";
 import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
-import Cart from "./cart"
+import Cart from "./Cart"
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -77,7 +77,7 @@ const Header = () => {
           </div>
         )}
       </div>
-      <div className="md:hidden w-full flex justify-center items-center ">
+      <div className="md:hidden w-[90%] flex justify-center items-center mt-2">
         <Searchbar />
       </div>
     </nav>

@@ -7,14 +7,14 @@ const Productimages = ({ images }) => {
  
   return (
     <div>
-      <Image
+      <img
         src={selectedImage}
         alt="img"
         className="w-full h-auto object-cover rounded-md shadow-md "
       />
       <div className="flex gap-2 mt-4">
         {images?.map((image, index) => (
-          <Image
+          <img
             src={image}
             alt="img"
             key={index}

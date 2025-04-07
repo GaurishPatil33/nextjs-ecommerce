@@ -7,7 +7,7 @@ const Productcard = ({ product }) => {
     <Link href={`/product/${product.id}`} className=" block group ">
 
       <div className="m-1 p-4 h-full overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-        <Image
+        <img
           src={product.thumbnail}
           alt={product.title}
           className="w-full h-40 object-cover rounded-md"
