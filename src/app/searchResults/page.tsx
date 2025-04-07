@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { searchProduct } from "../lib/productfetchingAPI";
 import Productcard from "../components/Productcard";
 
-const searchProductsPage = () => {
+const SearchProductsPage = () => {
   const [products, setProducts] = useState([]);
   const router = useSearchParams();
   const query = router.get("q");
@@ -47,4 +47,4 @@ const searchProductsPage = () => {
   );
 };
 
-export default searchProductsPage;
+export default SearchProductsPage;

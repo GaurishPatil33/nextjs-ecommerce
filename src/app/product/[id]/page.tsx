@@ -8,7 +8,7 @@ import {
 import { useParams } from "next/navigation";
 import Productcard from "@/app/components/Productcard";
 
-const page = () => {
+const Page = () => {
   const params = useParams();
   const id = params?.id;
   const [product, setproduct] = useState<any>(null);
@@ -146,4 +146,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default Page;
