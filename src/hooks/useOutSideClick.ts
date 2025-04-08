@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import  React, { useEffect } from 'react'
 
-const useOutSideClick = (ref,callback) => {
+const useOutSideClick = (ref:React.RefObject<HTMLElement>,callback:()=>void) => {
   useEffect(()=>{
-    const handleClick=(e)=>{
-      if(ref.current && !ref.current.contains(e.target)){
+    const handleClick=(e:MouseEvent)=>{
+      if(ref.current && !ref.current.contains(e.target as Node)){
         callback();
       }
-      document.addEventListener("mousedown",handleClick);
-      return()=>{
-        document.removeEventListener("mousedown",handleClick)
-      }
     };
+    document.addEventListener("mousedown",handleClick);
+    return()=>{
+      document.removeEventListener("mousedown",handleClick)
+    }
   },[ref,callback]);
   
 }
