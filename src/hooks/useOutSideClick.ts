@@ -1,6 +1,6 @@
 import  React, { useEffect } from 'react'
 
-const useOutSideClick = (ref:React.RefObject<HTMLElement>,callback:()=>void) => {
+const useOutSideClick = (ref:React.RefObject<HTMLElement|null>,callback:()=>void) => {
   useEffect(()=>{
     const handleClick=(e:MouseEvent)=>{
       if(ref.current && !ref.current.contains(e.target as Node)){
