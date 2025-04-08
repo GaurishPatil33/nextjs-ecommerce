@@ -30,7 +30,7 @@ const Page = () => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (a === "i" && quantity < product.stock) {
+    if (a === "i" && quantity < product?.stock) {
       setQuantity((prev) => prev + 1);
     }
   };
@@ -120,8 +120,8 @@ const Page = () => {
       <div className="mt-10 ">
         <h2 className="text-2xl font-semibold">Customer Reviews</h2>
         <div className="h-0.5 bg-gray-100 my-2" />
-        {product.reviews.length > 0 ? (
-          product.reviews.map((review, index) => (
+        {product?.reviews?.length > 0 ? (
+          product?.reviews?.map((review, index) => (
             <div key={index} className="p-4 bg-gray-50 rounded-lg mb-4">
               <div className="flex justify-between items-center">
                 <h3 className="font-semibold">{review.reviewerName}</h3>
