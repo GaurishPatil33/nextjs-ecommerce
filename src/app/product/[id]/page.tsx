@@ -30,7 +30,8 @@ const Page = () => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (a === "i" && quantity < product?.stock) {
+    if(!product || typeof product.stock!== 'number')return;
+    if (a === "i" && quantity < (product?.stock??0)) {
       setQuantity((prev) => prev + 1);
     }
   };
