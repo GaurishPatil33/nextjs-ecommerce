@@ -16,7 +16,7 @@ const Product = () => {
   const id = Array.isArray(params?.id)?params.id[0]:params.id;
   const [product, setproduct] = useState<ProductInterface | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [relatedProducts, setRelatedProducts] = useState<ProductInterface[]>([]);
 
   const handleQuantity = (a: string) => {
     if (a === "d" && quantity > 1) {

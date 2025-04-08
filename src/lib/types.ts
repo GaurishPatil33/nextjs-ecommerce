@@ -33,7 +33,7 @@ export interface ProductInterface {
     images: string[];
     category: string;
     description: string;
-    reviews:Review
+    reviews:Review[]
 }
 export interface Review{
     reviewerName:string;

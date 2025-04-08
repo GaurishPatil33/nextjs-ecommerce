@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllProducts } from "../lib/productfetchingAPI";
 import Productcard from "./Productcard";
+import { Product } from "@/lib/types";
 
 
 const Productlist = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
 
   useEffect(() => {
