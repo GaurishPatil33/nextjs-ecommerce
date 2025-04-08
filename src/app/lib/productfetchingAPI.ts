@@ -1,4 +1,3 @@
-import { ProductcardProps } from "./types"
 
 export async function fetchAllProducts() {
     try {
@@ -27,24 +26,23 @@ export async function fetchProductByID(id:string) {
 
 }
 
-export async function searchProduct(id: string): Promise<ProductcardProps[]> {
+export async function searchProduct(id:string) {
     try {
-      const res = await fetch(`https://dummyjson.com/products/search?q=${id}`);
-  
-      if (!res.ok) {
-        throw new Error("Network response was not ok");
-      }
-  
-      const data = await res.json();
-  
-      // Assuming `data.products` is an array of product objects
-      return data.products as ProductcardProps[];  // Type the response as Product[]
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      return [];
-    }
-  }
+        const res = await fetch(`https://dummyjson.com/products/search?q=${id}`)
+        
+        // const res = await fetch(`https://dummyjson.com/products`)||""
+        const data = await res.json()
+        // const a=(data.products).filter(product=>product.title.toLowerCase().includes(id.toLowerCase()))
+        return data.products
+        // return a
 
+
+    } catch (err) {
+        console.error("error", err)
+        return []
+    }
+
+}
 export async function fetchProductByCategory(id:string) {
     try {
         const res = await fetch(`https://dummyjson.com/products/category/${id}`)

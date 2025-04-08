@@ -4,10 +4,10 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { searchProduct } from "../lib/productfetchingAPI";
 import Productcard from "../components/Productcard";
-import { ProductcardProps } from "../lib/types";
+import { Product } from "../lib/types";
 
 const SearchProductsPage = () => {
-  const [products, setProducts] = useState<ProductcardProps[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useSearchParams();
   const query = router.get("q");
 
@@ -16,7 +16,7 @@ const SearchProductsPage = () => {
       if (query) {
         try {
           const res = await searchProduct(query);
-          setProducts(res || []);
+          setProducts(res || []);  // Directly set products here
           console.log(res);
         } catch (error) {
           console.log("error", error);
