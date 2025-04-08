@@ -1,7 +1,8 @@
 import  { useState } from "react";
 import Image from "next/image";
+import { ProductimageProps } from "@/lib/types";
 
-const Productimages = ({ images }) => {
+const Productimages:React.FC<ProductimageProps> = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images?.[0] || "");
 
   return (

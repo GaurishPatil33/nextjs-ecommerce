@@ -7,30 +7,22 @@ import {
 } from "@/lib/productfetchingAPI";
 import { useParams } from "next/navigation";
 import Productcard from "@/components/Productcard";
+import { ProductInterface } from "@/lib/types";
 
-type Product = {
-  id: number;
-  title: string;
-  price: number;
-  discountPercentage: number;
-  stock: number;
-  images: string[];
-  category: string;
-  description: string;
-};
 
-const Page = () => {
+
+const Product = () => {
   const params = useParams();
-  const id = params?.id;
-  const [product, setproduct] = useState<Product | null>(null);
+  const id = Array.isArray(params?.id)?params.id[0]:params.id;
+  const [product, setproduct] = useState<ProductInterface | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
   const handleQuantity = (a: string) => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (!product || typeof product.stock !== "number") return;
+    // if (!product || typeof product.stock !== "number") return;
     if (a === "i" && quantity < (product?.stock ?? 0)) {
       setQuantity((prev) => prev + 1);
     }
@@ -38,7 +30,7 @@ const Page = () => {
 
   useEffect(() => {
     const getProduct = async () => {
-      try {
+      if(id){try {
         const data = await fetchProductByID(id);
         const related = await fetchProductByCategory(data.category);
 
@@ -47,6 +39,8 @@ const Page = () => {
         console.log(data);
       } catch (error) {
         console.error("eroor", error);
+      }}else{
+        console.log("No product id provided")
       }
     };
     getProduct();
@@ -161,4 +155,4 @@ const Page = () => {
     </div>
   );
 };
-export default Page;
+export default Product;

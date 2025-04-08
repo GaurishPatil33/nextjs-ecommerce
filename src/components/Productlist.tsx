@@ -6,7 +6,6 @@ import Productcard from "./Productcard";
 
 const Productlist = () => {
   const [products, setProducts] = useState([]);
-//   const a=await fetchAllProducts()
 
 
   useEffect(() => {

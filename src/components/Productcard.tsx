@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import { ProductcardProps } from "@/lib/types";
 
-const Productcard = ({ product }) => {
+const Productcard:React.FC<ProductcardProps> = ({ product }) => {
   return (
     <Link href={`/product/${product.id}`} className=" block group ">
       <div className="m-1 p-4 h-full overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">

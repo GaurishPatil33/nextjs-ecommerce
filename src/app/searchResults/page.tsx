@@ -1,12 +1,13 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { searchProduct } from "../../lib/productfetchingAPI";
 import Productcard from "../../components/Productcard";
+import { Product } from "@/lib/types";
 
 const SearchProductsPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const router = useSearchParams();
   const query = router.get("q");
 
@@ -27,9 +28,9 @@ const SearchProductsPage = () => {
 
   return (
     <div className="  ">
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <div className="mt-5 ml-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
+          {products?.map((p) => (
             <div
               key={p.id}
               className="transform transition duration-300 hover:scale-105"
@@ -47,4 +48,12 @@ const SearchProductsPage = () => {
   );
 };
 
-export default SearchProductsPage;
+const DynamicSearchProductsPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchProductsPage />
+    </Suspense>
+  );
+};
+
+export default DynamicSearchProductsPage;
