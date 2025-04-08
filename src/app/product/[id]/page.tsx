@@ -8,10 +8,21 @@ import {
 import { useParams } from "next/navigation";
 import Productcard from "@/app/components/Productcard";
 
+type Product={
+  id:number;
+  title:string;
+  price:number
+  discountPercentage:number;
+  stock:number;
+  images:string[];
+  category:string;
+  description:string
+}
+
 const Page = () => {
   const params = useParams();
   const id = params?.id;
-  const [product, setproduct] = useState<any>(null);
+  const [product, setproduct] = useState<Product|null>(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
 

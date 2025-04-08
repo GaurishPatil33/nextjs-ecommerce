@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <div className=" px-4 py-20 relative bg-gray-100 text-sm mt-24">
+    <div className=" px-4 py-20 relative bg-gray-100 text-black text-sm mt-24">
       <div className=" flex  md:flex-row justify-between gap-24">
         <div className="w-1/2 md:w-1/4 flex flex-col gap-8">
           <Link href={"/"} className=" text-xl font-bold text-red-400">

@@ -14,7 +14,7 @@ const Productcard = ({ product }) => {
         />
         <h2 className="text-lg font-medium truncate">{product.title}</h2>
         <div className="flex items-center justify-between text-black">
-          <p>{product.price} ₹</p>
+          <p>{Math.round(product.price)} ₹</p>
           <p className=" text-sm text-green-500">{product.discountPercentage} % Off</p>
         </div>
       </div>

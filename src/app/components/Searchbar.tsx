@@ -19,10 +19,10 @@ const Searchbar = () => {
     <div>
       <form
         action=""
-        className="px-4 flex w-full justify-between items-center  md:w-max"
+        className=" flex w-full justify-between items-center  md:w-max shadow-md md:shadow-none rounded-xl px-4"
         onSubmit={handleSubmit}
       >
-        <input className="pl-10 outline-none flex-1"
+        <input className=" outline-none flex-1"
           type="text"
           value={searchterm}
           onChange={(e) => setSearchterm(e.target.value)}

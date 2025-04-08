@@ -2,11 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  images:{
-    remotePatterns:[
+  images: {
+    remotePatterns: [
       {
         protocol: "https",
-        hostname:"images.pexels.com"
+        hostname: "images.pexels.com"
+
+      },    {
+        protocol: "https",
+        hostname: "cdn.dummyjson.com"
 
       },
     ],

@@ -77,7 +77,7 @@ const Header = () => {
           </div>
         )}
       </div>
-      <div className="md:hidden w-[90%] flex justify-center items-center mt-2">
+      <div className="md:hidden  flex justify-center items-center mt-2">
         <Searchbar />
       </div>
     </nav>
