@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 import Productcard from "@/components/Productcard";
 
 type Product = {
-  id: string;
+  id: number;
   title: string;
   price: number;
   discountPercentage: number;
