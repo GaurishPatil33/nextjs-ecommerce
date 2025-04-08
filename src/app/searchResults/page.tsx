@@ -4,9 +4,10 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { searchProduct } from "../lib/productfetchingAPI";
 import Productcard from "../components/Productcard";
+import { ProductcardProps } from "../lib/types";
 
-const searchProductsPage = () => {
-  const [products, setProducts] = useState([]);
+const SearchProductsPage = () => {
+  const [products, setProducts] = useState<ProductcardProps[]>([]);
   const router = useSearchParams();
   const query = router.get("q");
 
@@ -47,4 +48,4 @@ const searchProductsPage = () => {
   );
 };
 
-export default searchProductsPage;
+export default SearchProductsPage;

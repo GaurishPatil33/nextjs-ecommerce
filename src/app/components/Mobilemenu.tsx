@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { FaUser } from "react-icons/fa";
+// import { FaUser } from "react-icons/fa";
 
 const Mobilemenu = () => {
 

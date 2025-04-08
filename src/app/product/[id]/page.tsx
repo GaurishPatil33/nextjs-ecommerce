@@ -3,31 +3,36 @@ import React, { useEffect, useState } from "react";
 import Productimages from "../../components/Productimages";
 import { fetchProductByID } from "@/app/lib/productfetchingAPI";
 import { useParams } from "next/navigation";
+import { ProductInterface } from "@/app/lib/types";
 
-const page = () => {
+const Product = () => {
   const params = useParams();
-  const id = params?.id;
-  const [product, setproduct] = useState<any>(null);
+  const id = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  const [product, setProduct] = useState<ProductInterface | null>(null);
   const [quantity, setQuantity] = useState(1);
 
   const handleQuantity = (a: string) => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if (a === "i" && quantity < product.stock) {
+    if (a === "i" && product?.stock && quantity < product.stock) {
       setQuantity((prev) => prev + 1);
     }
   };
 
   useEffect(() => {
     const getProduct = async () => {
-      try {
-        const data = await fetchProductByID(id);
-        setproduct(data);
-        console.log(data);
-        console.log(data.images);
-      } catch (error) {
-        console.error("eroor", error);
+      if (id) { // Ensure id is a valid string before fetching the product
+        try {
+          const data = await fetchProductByID(id);
+          setProduct(data);
+          console.log(data);
+          console.log(data.images);
+        } catch (error) {
+          console.error("Error fetching product", error);
+        }
+      } else {
+        console.error("No product ID provided");
       }
     };
     getProduct();
@@ -98,4 +103,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default Product;
