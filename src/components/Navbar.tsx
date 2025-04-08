@@ -14,9 +14,9 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
 
-const mobileRef=useRef();
-const cartRef=useRef();
-const wishlistRef=useRef();
+const mobileRef=useRef<HTMLDivElement>(null);
+const cartRef=useRef<HTMLDivElement>(null);
+const wishlistRef=useRef<HTMLDivElement>(null);
 
 useOutSideClick(mobileRef,()=>setIsMobileMenuOpen(false));
 useOutSideClick(cartRef,()=>setIsCartOpen(false));
