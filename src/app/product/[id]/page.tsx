@@ -8,21 +8,21 @@ import {
 import { useParams } from "next/navigation";
 import Productcard from "@/components/Productcard";
 
-type Product={
-  id:number;
-  title:string;
-  price:number
-  discountPercentage:number;
-  stock:number;
-  images:string[];
-  category:string;
-  description:string
-}
+type Product = {
+  id: string;
+  title: string;
+  price: number;
+  discountPercentage: number;
+  stock: number;
+  images: string[];
+  category: string;
+  description: string;
+};
 
 const Page = () => {
   const params = useParams();
   const id = params?.id;
-  const [product, setproduct] = useState<Product|null>(null);
+  const [product, setproduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
@@ -30,8 +30,8 @@ const Page = () => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
-    if(!product || typeof product.stock!== 'number')return;
-    if (a === "i" && quantity < (product?.stock??0)) {
+    if (!product || typeof product.stock !== "number") return;
+    if (a === "i" && quantity < (product?.stock ?? 0)) {
       setQuantity((prev) => prev + 1);
     }
   };
@@ -126,8 +126,10 @@ const Page = () => {
             <div key={index} className="p-4 bg-gray-50 rounded-lg mb-4">
               <div className="flex justify-between items-center">
                 <h3 className="font-semibold">{review.reviewerName}</h3>
-                <span className="text-xs text-gray-400">{new Date(review.date).toLocaleDateString()}</span>
-                </div>
+                <span className="text-xs text-gray-400">
+                  {new Date(review.date).toLocaleDateString()}
+                </span>
+              </div>
               <p className="text-yellow-500">
                 {"★".repeat(review.rating)}
                 {"☆".repeat(5 - review.rating)}
@@ -147,7 +149,8 @@ const Page = () => {
         <div className="h-0.5 bg-gray-100 my-2" />
         <div className="flex gap-4 overflow-x-auto">
           {relatedProducts
-            .filter((p) => p.id !== product.id).slice(0,7)
+            .filter((p) => p.id !== product.id)
+            .slice(0, 7)
             .map((product, index) => (
               <div className="    min-w-44 w-60" key={index}>
                 <Productcard product={product} />
