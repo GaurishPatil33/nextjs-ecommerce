@@ -1,11 +1,12 @@
 "use client";
 
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import { searchProduct } from "../lib/productfetchingAPI";
 import Productcard from "../components/Productcard";
 import { Product } from "../lib/types";
 
+// SearchProductsPage component
 const SearchProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const router = useSearchParams();
@@ -16,7 +17,7 @@ const SearchProductsPage = () => {
       if (query) {
         try {
           const res = await searchProduct(query);
-          setProducts(res || []);  // Directly set products here
+          setProducts(res || []);
           console.log(res);
         } catch (error) {
           console.log("error", error);
@@ -48,4 +49,11 @@ const SearchProductsPage = () => {
   );
 };
 
-export default SearchProductsPage;
+// Dynamically import with no SSR
+const DynamicSearchProductsPage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SearchProductsPage />
+  </Suspense>
+);
+
+export default DynamicSearchProductsPage;
