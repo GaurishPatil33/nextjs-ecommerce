@@ -1,5 +1,5 @@
-import Productlist from "./components/Productlist";
-import Slider from "./components/Slider";
+import Productlist from "../components/Productlist";
+import Slider from "../components/Slider";
 
 export default async function Home() {
   return (

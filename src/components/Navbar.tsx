@@ -1,17 +1,26 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Searchbar from "./Searchbar"
 import { MdMenu } from "react-icons/md";
 import Mobilemenu from "./Mobilemenu"
 import { FaCartShopping } from "react-icons/fa6";
 import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import Cart from "./Cart"
+import useOutSideClick from "@/hooks/useOutSideClick";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isCartOpen, setisCartOpen] = useState(false);
-  const [isWishlistOpen, setisWishlistOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+
+const mobileRef=useRef();
+const cartRef=useRef();
+const wishlistRef=useRef();
+
+useOutSideClick(mobileRef,()=>setIsMobileMenuOpen(false));
+useOutSideClick(cartRef,()=>setIsCartOpen(false));
+useOutSideClick(wishlistRef,()=>setIsWishlistOpen(false));
 
   return (
     <nav className=" top-0 w-full z-20  mb-5">
@@ -37,13 +46,13 @@ const Header = () => {
           </div>
           {/* wishlist */} {/* cart */}
           <div className=" right-0 flex justify-center items-center gap-3 font-bold text-gray-900 ">
-            <button className="cursor-pointer" onClick={()=>setisWishlistOpen((prev)=>!prev)}>
+            <button className="cursor-pointer" onClick={()=>setIsWishlistOpen((prev)=>!prev)}>
               <FaRegHeart />
             </button>
-            <button className="cursor-pointer" onClick={() => setisCartOpen((prev) => !prev)}>
+            <button className="cursor-pointer" onClick={() => setIsCartOpen((prev) => !prev)}>
               <FaCartShopping />
             </button>
-            <button className="cursor-pointer" onClick={()=>setisWishlistOpen((prev)=>!prev)}>
+            <button className="cursor-pointer" onClick={()=>setIsWishlistOpen((prev)=>!prev)}>
               <FaRegUserCircle />
             </button>
 
@@ -60,20 +69,26 @@ const Header = () => {
         </div>
         {/* if mobile menu open */}
         {isMobileMenuOpen && (
-          <div className=" flex justify-end absolute right-0">
+          <div 
+          ref={mobileRef}
+          className=" flex justify-end absolute right-0">
             <Mobilemenu />
           </div>
         )}
         {/* if cart open */}
         {isCartOpen && (
-          <div className=" flex justify-end absolute right-0">
+          <div 
+          ref={cartRef}
+          className=" flex justify-end absolute right-0">
             <Cart />
           </div>
         )}
         {/* if wishlist open */}
         {isWishlistOpen && (
-          <div className=" flex justify-end absolute right-0">
-            <Cart />
+          <div 
+          ref={wishlistRef}
+          className=" flex justify-end absolute right-0">
+            wishlist
           </div>
         )}
       </div>

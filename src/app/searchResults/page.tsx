@@ -2,8 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { searchProduct } from "../lib/productfetchingAPI";
-import Productcard from "../components/Productcard";
+import { searchProduct } from "../../lib/productfetchingAPI";
+import Productcard from "../../components/Productcard";
 
 const SearchProductsPage = () => {
   const [products, setProducts] = useState([]);

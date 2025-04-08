@@ -12,12 +12,13 @@ const Productcard = ({ product }) => {
             alt={product.title}
             fill
             className=" object-cover rounded-md"
+             sizes="(max-width: 768px) 100vw, 300px"
           />
         </div>
         <h2 className="text-lg font-medium truncate">{product.title}</h2>
         <div className="flex items-center justify-between text-black">
           <p className="text-base font-semibold">{Math.round(product.price)} ₹</p>
-          <p className=" text-sm  text-green-500">
+          <p className=" text-xs  text-green-500">
             {product.discountPercentage} % Off
           </p>
         </div>

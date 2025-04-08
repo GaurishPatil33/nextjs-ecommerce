@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Productimages from "../../components/Productimages";
+import Productimages from "../../../components/Productimages";
 import {
   fetchProductByCategory,
   fetchProductByID,
-} from "@/app/lib/productfetchingAPI";
+} from "@/lib/productfetchingAPI";
 import { useParams } from "next/navigation";
-import Productcard from "@/app/components/Productcard";
+import Productcard from "@/components/Productcard";
 
 type Product={
   id:number;
