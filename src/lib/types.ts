@@ -42,3 +42,12 @@ export interface Review{
     rating:number;
     comment:string
 }
+export interface CartItem extends ProductInterface {
+    quantity: number;
+}
+
+export interface CartStore {
+    cart: CartItem[];
+    addToCart: (product: ProductInterface, quantity: number) => void;
+    clearCart: () => void;
+}

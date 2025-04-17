@@ -9,16 +9,36 @@ import { useParams } from "next/navigation";
 import Productcard from "@/components/Productcard";
 import { ProductInterface } from "@/lib/types";
 
-
+import { useCartStore } from "@/lib/store/cartStore";
+import { useRouter } from "next/navigation";
 
 const Product = () => {
   const params = useParams();
-  const id = Array.isArray(params?.id)?params.id[0]:params.id;
+  const router =useRouter();
+  const id = Array.isArray(params?.id) ? params.id[0] : params.id;
   const [product, setproduct] = useState<ProductInterface | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [relatedProducts, setRelatedProducts] = useState<ProductInterface[]>([]);
+  const [relatedProducts, setRelatedProducts] = useState<ProductInterface[]>(
+    []
+  );
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCartStore();
 
-  const handleQuantity = (a: string) => {
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, quantity);
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (product) {
+      addToCart(product, quantity);
+      router.push(`/cart`);
+    }
+  };
+
+  
+  const handleQuantity = (a: "i" | "d") => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
@@ -30,21 +50,28 @@ const Product = () => {
 
   useEffect(() => {
     const getProduct = async () => {
-      if(id){try {
-        const data = await fetchProductByID(id);
-        const related = await fetchProductByCategory(data.category);
+      if (id) {
+        try {
+          const data = await fetchProductByID(id);
+          const related = await fetchProductByCategory(data.category);
 
-        setproduct(data);
-        setRelatedProducts(related);
-        console.log(data);
-      } catch (error) {
-        console.error("eroor", error);
-      }}else{
-        console.log("No product id provided")
+          setproduct(data);
+          setRelatedProducts(related);
+          console.log(data);
+        } catch (error) {
+          console.error("error", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        console.log("No product id provided");
+        setLoading(false);
       }
     };
     getProduct();
   }, [id]);
+
+  if (loading) return <div className=" text-center mt10">Loading...</div>;
 
   if (!product)
     return <div className="text-center mt-10">Product not found</div>;
@@ -79,7 +106,7 @@ const Product = () => {
           <div className="h-0.5 bg-gray-100" />
           <div className="flex flex-col gap-4">
             <h4 className="font-medium">Choose a Quantity</h4>
-            <div className="flex justify-between">
+            <div className="flex flex-col gap-4 md:flex-row justify-between">
               <div className="flex items-center gap-4">
                 <div className=" bg-gray-100 py-2 px-4 rounded-3xl flex items-center justify-between w-32 ">
                   <button
@@ -98,15 +125,28 @@ const Product = () => {
                 </div>
                 {product.stock < 10 && (
                   <div className="text-xs">
-                    Only{" "}
+                    Only
                     <span className="text-orange-500">{product.stock}</span>
                     left! dont miss it
                   </div>
                 )}
               </div>
-              <button className=" w-30 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none">
-                {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
-              </button>
+              <div className="flex gap-2 ">
+                <button
+                  disabled={product.stock === 0}
+                  onClick={handleBuyNow}
+                  className=" w-30 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
+                >
+                  {product.stock === 0 ? "Unavailable" : "Buy Now"}
+                </button>
+                <button
+                  disabled={product.stock === 0}
+                  onClick={handleAddToCart}
+                  className=" w-30 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
+                >
+                  {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -145,8 +185,8 @@ const Product = () => {
           {relatedProducts
             .filter((p) => p.id !== product.id)
             .slice(0, 7)
-            .map((product, index) => (
-              <div className="    min-w-44 w-60" key={index}>
+            .map((product) => (
+              <div className="    min-w-44 w-60" key={product.id}>
                 <Productcard product={product} />
               </div>
             ))}

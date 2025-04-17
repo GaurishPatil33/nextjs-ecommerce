@@ -11,12 +11,12 @@ export async function fetchAllProducts() {
     }
 
 }
-export async function fetchProductByID(id:string) {
+export async function fetchProductByID(id: string) {
     try {
-        console.log(id)
+        // console.log(id)
         const res = await fetch(`https://dummyjson.com/products/${id}`)
         const data = await res.json()
-        console.log(data.products)
+
         return data
 
     } catch (err) {
@@ -26,15 +26,12 @@ export async function fetchProductByID(id:string) {
 
 }
 
-export async function searchProduct(id:string) {
+export async function searchProduct(id: string) {
     try {
         const res = await fetch(`https://dummyjson.com/products/search?q=${id}`)
-        
-        // const res = await fetch(`https://dummyjson.com/products`)||""
+
         const data = await res.json()
-        // const a=(data.products).filter(product=>product.title.toLowerCase().includes(id.toLowerCase()))
         return data.products
-        // return a
 
 
     } catch (err) {
@@ -43,7 +40,7 @@ export async function searchProduct(id:string) {
     }
 
 }
-export async function fetchProductByCategory(id:string) {
+export async function fetchProductByCategory(id: string) {
     try {
         const res = await fetch(`https://dummyjson.com/products/category/${id}`)
         const data = await res.json()
