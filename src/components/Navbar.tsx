@@ -5,7 +5,7 @@ import Searchbar from "./Searchbar";
 import { MdMenu } from "react-icons/md";
 import Mobilemenu from "./Mobilemenu";
 import { FaCartShopping } from "react-icons/fa6";
-import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
+// import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import Cart from "./Cart";
 import useOutSideClick from "@/hooks/useOutSideClick";
 import { useCartStore } from "@/lib/store/cartStore";
