@@ -9,6 +9,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import Cart from "./Cart";
 import useOutSideClick from "@/hooks/useOutSideClick";
 import { useCartStore } from "@/lib/store/cartStore";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -16,6 +17,8 @@ const Header = () => {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const { cart } = useCartStore();
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  const router = useRouter();
 
   const mobileRef = useRef<HTMLDivElement>(null);
   const cartRef = useRef<HTMLDivElement>(null);
@@ -58,7 +61,8 @@ const Header = () => {
 
             <button
               className="cursor-pointer relative"
-              onClick={() => setIsCartOpen((prev) => !prev)}
+              // onClick={() => setIsCartOpen((prev) => !prev)}
+            onClick={()=>router.push(`/cart`)}
             >
               <FaCartShopping />
               {totalItems > 0 && (

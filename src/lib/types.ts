@@ -1,15 +1,16 @@
 
 
 export interface ProductcardProps {
-    product: {
-        id: number;
-        title: string;
-        price: number;
-        discountPercentage: number;
-        thumbnail: string
-    }
+    product: ProductInterface
+    //      {
+    //         id: number;
+    //         title: string;
+    //         price: number;
+    //         discountPercentage: number;
+    //         thumbnail: string
+    //     }
 }
-export interface Product {
+export interface Product extends ProductInterface {
     id: number;
     title: string;
     price: number;
@@ -30,24 +31,28 @@ export interface ProductInterface {
     price: number;
     discountPercentage: number;
     stock: number;
-    thumbnail:string
+    thumbnail: string
     images: string[];
     category: string;
     description: string;
-    reviews:Review[]
+    reviews: Review[];
+    brand: string
 }
-export interface Review{
-    reviewerName:string;
-    date:string;
-    rating:number;
-    comment:string
+export interface Review {
+    reviewerName: string;
+    date: string;
+    rating: number;
+    comment: string
 }
 export interface CartItem extends ProductInterface {
     quantity: number;
+    selected?: boolean
 }
 
 export interface CartStore {
     cart: CartItem[];
     addToCart: (product: ProductInterface, quantity: number) => void;
+    removeFromCart: (id: number) => void;
     clearCart: () => void;
+    toggleSelect: (id: number) => void
 }

@@ -13,15 +13,29 @@ export const useCartStore = create<CartStore>()(
                     const existing = state.cart.find((item) => item.id === product.id);
                     if (existing) {
                         return {
-                            cart: state.cart.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + quantity }
-                                : item),
+                            cart: state.cart.map((item) =>
+                                item.id === product.id ? { ...item, quantity: item.quantity + quantity }
+                                    : item),
                         };
                     } else {
                         return {
-                            cart: [...state.cart, { ...product, quantity }]
+                            cart: [...state.cart, { ...product, quantity, selected: true }]
                         }
                     }
                 }),
+
+            removeFromCart: (id) => set((state) => ({
+
+                cart: state.cart.filter((item) => item.id !== id)
+            })),
+
+            toggleSelect: (id) =>
+                set((state) => ({
+                    cart: state.cart.map((item) =>
+                        item.id === id ? { ...item, selected: !item.selected } : item
+                    ),
+                })),
+
             clearCart: () => set({ cart: [] }),
         }),
         { name: "cart storage", }

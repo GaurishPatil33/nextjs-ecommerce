@@ -2,29 +2,52 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { ProductcardProps } from "@/lib/types";
+import { FaCartShopping, FaRegHeart } from "react-icons/fa6";
+import { FaShoppingBag } from "react-icons/fa";
+import { useCartStore } from "@/lib/store/cartStore";
 
-const Productcard:React.FC<ProductcardProps> = ({ product }) => {
+const Productcard: React.FC<ProductcardProps> = ({ product }) => {
+  const { addToCart } = useCartStore();
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, 1);
+    }
+  };
   return (
-    <Link href={`/product/${product.id}`} className=" block group ">
-      <div className="m-1 p-4 h-full overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-        <div className="relative w-full h-40">
-          <Image
-            src={product.thumbnail}
-            alt={product.title}
-            fill
-            className=" object-cover rounded-md"
-             sizes="(max-width: 768px) 100vw, 300px"
-          />
-        </div>
-        <h2 className="text-lg font-medium truncate">{product.title}</h2>
-        <div className="flex items-center justify-between text-black">
-          <p className="text-base font-semibold">{Math.round(product.price)} ₹</p>
-          <p className=" text-xs  text-green-500">
-            {product.discountPercentage} % Off
-          </p>
-        </div>
+    <div className="relative group cursor-pointer">
+      <div className=" absolute top-4 left-4 bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition z-10 ">
+        <FaRegHeart />
       </div>
-    </Link>
+      <Link href={`/product/${product.id}`} className=" block group ">
+        <div className="m-1 p-4 h-full overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+          <div className="relative w-full h-40">
+            <Image
+              src={product.thumbnail}
+              alt={product.title}
+              fill
+              className=" object-cover rounded-md"
+              sizes="(max-width: 768px) 100vw, 300px"
+            />
+          </div>
+          <h2 className="text-lg font-medium truncate">{product.title}</h2>
+          <div className="flex items-center justify-between text-black">
+            <p className="text-base font-semibold">
+              {Math.round(product.price)} ₹
+            </p>
+            <p className=" text-xs  text-green-500">
+              {product.discountPercentage} % Off
+            </p>
+          </div>
+        </div>
+      </Link>
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[80%] opacity-0 group-hover:opacity-100 transition-all duration-300 z-10 ">
+        <button onClick={handleAddToCart} className="bg-red-400 w-full p-2  hover:bg-red-500 text-sm font-medium flex items-center gap-2 transition">
+          Add To Cart
+          <FaCartShopping />
+        </button>
+      </div>
+    </div>
   );
 };
 

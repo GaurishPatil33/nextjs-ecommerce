@@ -17,7 +17,7 @@ const SearchProductsPage = () => {
         try {
           const res = await searchProduct(query);
           setProducts(res || []);
-          console.log(res);
+          // console.log(res);
         } catch (error) {
           console.log("error", error);
         }
