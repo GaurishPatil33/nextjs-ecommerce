@@ -54,5 +54,6 @@ export interface CartStore {
     addToCart: (product: ProductInterface, quantity: number) => void;
     removeFromCart: (id: number) => void;
     clearCart: () => void;
-    toggleSelect: (id: number) => void
+    toggleSelect: (id: number) => void;
+    updateQuantity:(id:number,quantity:number )=>void
 }

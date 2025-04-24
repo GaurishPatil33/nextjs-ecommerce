@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { CartStore } from "../types";
 import { persist } from "zustand/middleware";
+import { it } from "node:test";
 
 
 export const useCartStore = create<CartStore>()(
@@ -37,6 +38,11 @@ export const useCartStore = create<CartStore>()(
                 })),
 
             clearCart: () => set({ cart: [] }),
+
+            updateQuantity: (id, quantity) =>
+                set((state) => ({
+                    cart: state.cart.map((item) => item.id === id ? { ...item, quantity } : item)
+                })),
         }),
         { name: "cart storage", }
     )
