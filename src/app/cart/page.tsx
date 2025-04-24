@@ -80,6 +80,12 @@ const CartPage = () => {
                       Remove Selected
                     </button>
                   )}
+                  <button
+                    className="text-red-500 hover:text-red-700 text-sm font-medium"
+                    onClick={()=>clearCart()}
+                  >
+                    Remove All
+                  </button>
                 </div>
               </div>
               {cart.map((item) => (
@@ -151,13 +157,15 @@ const CartPage = () => {
                             <div className="absolute top-full  mt-2 w-56 bg-white border shadow rounded-lg p-4 z-10">
                               <div className="flex justify-between mb-4">
                                 <h2 className="text-xl mb-1 text-gray-500">
-                                Select Quantity
-                              </h2>
-                                <button className="text-gray-500 hover:text-black"
-                                onClick={()=>setqtyDropdownId(null)}>
-                                  <IoMdClose/>
+                                  Select Quantity
+                                </h2>
+                                <button
+                                  className="text-gray-500 hover:text-black"
+                                  onClick={() => setqtyDropdownId(null)}
+                                >
+                                  <IoMdClose />
                                 </button>
-                                </div>
+                              </div>
                               <div className="grid grid-cols-3 gap-3 mb-4 justify-items-center">
                                 {[...Array(10)].map((_, i) => (
                                   <div key={i} className="">
@@ -249,7 +257,7 @@ const CartPage = () => {
       )}
 
       {/* if cart is empty */}
-      {cart.length > 0 && (
+      {cart.length === 0 && (
         <div className="flex flex-col items-center text-center px-4 mt-10 pb-10 space-y-4">
           <Image
             src="/empty-cart.jpg"
