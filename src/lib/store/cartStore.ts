@@ -43,6 +43,11 @@ export const useCartStore = create<CartStore>()(
                 set((state) => ({
                     cart: state.cart.map((item) => item.id === id ? { ...item, quantity } : item)
                 })),
+
+            removeSelected: () =>
+                set((state) => ({
+                    cart: state.cart.filter((item) => !item.selected)
+                })),
         }),
         { name: "cart storage", }
     )

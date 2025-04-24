@@ -3,6 +3,8 @@ import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { IoMdArrowDropdown, IoMdClose } from "react-icons/io";
+import { useState } from "react";
 
 const CartPage = () => {
   const { cart, clearCart, removeFromCart, toggleSelect, updateQuantity } =
@@ -21,7 +23,7 @@ const CartPage = () => {
   );
   const deliveryCharges =
     selectedItems.length === 0 ? 0 : totalPrice > 200 ? 0 : 50;
-
+  const [qtyDropdownId, setqtyDropdownId] = useState<null | number>(null);
   const handleCheckout = () => {
     if (cart.length === 0) return;
     alert("Proceeding to Checkout!");
@@ -40,6 +42,11 @@ const CartPage = () => {
       });
     }
   };
+  const handleRemoveSelected = () => {
+    cart.forEach((item) => {
+      if (item.selected) removeFromCart(item.id);
+    });
+  };
 
   return (
     <div className="w-full md:py-8 px-3 py-4">
@@ -54,16 +61,26 @@ const CartPage = () => {
             {/* cart items */}
             <div className="flex-2 p-5 w-full overflow-x-auto ">
               <div className="flex justify-between pr-4 ">
-                <div className="text-lg font-bold">Cart items</div>
-                <label className="inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox accent-blue-500"
-                    checked={allSelected}
-                    onChange={handleSelectAll}
-                  />
-                  <span className="ml-2 text-sm">Select All</span>
-                </label>
+                {/* <div className="text-lg font-bold">Cart items</div> */}
+                <div className=" flex items-center gap-3">
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox accent-blue-500"
+                      checked={allSelected}
+                      onChange={handleSelectAll}
+                    />
+                    <span className="ml-2 text-sm">Select All</span>
+                  </label>
+                  {selectedItems.length > 0 && (
+                    <button
+                      className="text-red-500 hover:text-red-700 text-sm font-medium"
+                      onClick={handleRemoveSelected}
+                    >
+                      Remove Selected
+                    </button>
+                  )}
+                </div>
               </div>
               {cart.map((item) => (
                 <div
@@ -89,16 +106,16 @@ const CartPage = () => {
                   </div>
                   <div className="w-full flex flex-col md:flex-row justify-between">
                     <div className="flex flex-col w-full">
-                      <Link href={""}>
-                        <Link href={`/product/${item.id}`} className="text-lg md:text-2xl font-semibold text-black/[0.8] line-clamp-2">
+                      <Link href={`/product/${item.id}`}>
+                        <div className="text-lg md:text-2xl font-semibold text-black/[0.8] line-clamp-2">
                           {item.title}
-                        </Link>
+                        </div>
                       </Link>
                       <div className="text-sm md:text-lg font-medium text-black/[0.5] ">
                         {item.brand}
                       </div>
 
-                      <div className="flex gap-3 items-center ">
+                      <div className="flex flex-wrap gap-2  md:gap-3 items-center ">
                         <p className="text-sm md:text-lg font-normal md:font-medium line-through text-gray-500">
                           ₹{" "}
                           {(
@@ -115,23 +132,70 @@ const CartPage = () => {
                         </p>
                       </div>
                       <div className="flex items-center  justify-between mt-1 pr-4">
-                        <div className="flex items-center gap-1">
-                          <div className="text-sm font-semibold">
-                            Quantity :
+                        <div className="flex items-center gap-1 border rounded relative">
+                          <div className="text-sm  ">
+                            <button
+                              onClick={() =>
+                                setqtyDropdownId(
+                                  qtyDropdownId === item.id ? null : item.id
+                                )
+                              }
+                              className="flex items-center px-2 py-1"
+                            >
+                              Qty : {item.quantity}{" "}
+                              <IoMdArrowDropdown className="text-xl ml-1" />
+                            </button>
                           </div>
-                          <select
-                            className=" border  py-1 rounded hover:text-black "
+
+                          {qtyDropdownId === item.id && (
+                            <div className="absolute top-full  mt-2 w-56 bg-white border shadow rounded-lg p-4 z-10">
+                              <div className="flex justify-between mb-4">
+                                <h2 className="text-xl mb-1 text-gray-500">
+                                Select Quantity
+                              </h2>
+                                <button className="text-gray-500 hover:text-black"
+                                onClick={()=>setqtyDropdownId(null)}>
+                                  <IoMdClose/>
+                                </button>
+                                </div>
+                              <div className="grid grid-cols-3 gap-3 mb-4 justify-items-center">
+                                {[...Array(10)].map((_, i) => (
+                                  <div key={i} className="">
+                                    <button
+                                      className={`size-7 flex items-center justify-center rounded-full border text-sm font-medium transition  ${
+                                        i + 1 === item.quantity
+                                          ? "border-red-600 text-red-500"
+                                          : "border-gray-300 hover:bg-gray-100"
+                                      }`}
+                                      onClick={() => {
+                                        updateQuantity(item.id, i + 1);
+                                        setqtyDropdownId(null);
+                                      }}
+                                    >
+                                      {i + 1}
+                                    </button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {/* <select
+                            className=" border-none active:border-none py-1 rounded hover:text-black "
                             value={item.quantity}
                             onChange={(e) =>
                               updateQuantity(item.id, parseInt(e.target.value))
                             }
                           >
                             {[...Array(10)].map((_, i) => (
-                              <option key={i} value={i + 1} className="hover:accent-blue-400">
+                              <option
+                                key={i}
+                                value={i + 1}
+                                className="hover:accent-blue-400"
+                              >
                                 {i + 1}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
                         </div>
                         <div className=" items-center">
                           {" "}
@@ -150,7 +214,7 @@ const CartPage = () => {
             </div>
 
             {/* price details */}
-            <div className="flex-1 flex flex-col gap-6 bg-gray-50 p-5 rounded-sm">
+            <div className="flex-1 flex flex-col gap-6 bg-gray-50 p-5 rounded-lg">
               <h2 className="text-xl font-bold">Price Details</h2>
               <div className="flex justify-between ">
                 <p>Price ({selectedItems.length} items)</p>
