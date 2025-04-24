@@ -16,7 +16,6 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const { cart } = useCartStore();
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const router = useRouter();
 
@@ -65,9 +64,9 @@ const Header = () => {
             onClick={()=>router.push(`/cart`)}
             >
               <FaCartShopping />
-              {totalItems > 0 && (
+              {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                  {totalItems}
+                  {cart.length}
                 </span>
               )}
             </button>
