@@ -3,13 +3,11 @@ import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import React from "react";
-import { CartItem } from "@/lib/types";
 
 const CartPage = () => {
   const {
     cart,
     clearCart,
-    addToCart,
     removeFromCart,
     toggleSelect,
     updateQuantity,
@@ -29,17 +27,7 @@ const CartPage = () => {
   const deliveryCharges =
     selectedItems.length === 0 ? 0 : totalPrice > 200 ? 0 : 50;
 
-  const decreaseQuantity = (item: CartItem) => {
-    if (item.quantity > 1) {
-      addToCart(item, -1);
-    } else {
-      removeFromCart(item.id);
-    }
-  };
 
-  const increaseQuantity = (item: CartItem) => {
-    addToCart(item, 1);
-  };
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
