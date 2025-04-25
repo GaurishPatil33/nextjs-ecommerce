@@ -19,7 +19,7 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
     <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md transition-shadow duration-300">
       <div
         onClick={() => setWishlisted(!wishlisted)}
-        className={` absolute top-4 left-4 p-2 rounded-full opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition z-10 ${
+        className={` absolute top-4 left-4 p-2 rounded-full opacity-70 md:opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition z-10 ${
           wishlisted ? "bg-red-100 text-red-500" : "bg-white hover:bg-gray-100"
         }`}
       >

@@ -1,17 +1,18 @@
+import CategoryGrid from "@/components/CategoryGrid";
 import Productlist from "../components/Productlist";
 import Slider from "../components/Slider";
 
 export default async function Home() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       {/* hero/Banner */}
       <div className="">
         <Slider />
-        </div>
+      </div>
       <main>
-        All products
-        <div className="grid grid-cols-4 "></div>
-        <Productlist />
+        <CategoryGrid />
+        <Productlist title="Trending" />
+        <Productlist title="Best Sellers" />
       </main>
     </div>
   );

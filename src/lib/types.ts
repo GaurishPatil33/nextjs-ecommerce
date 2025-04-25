@@ -58,3 +58,11 @@ export interface CartStore {
     updateQuantity:(id:number,quantity:number )=>void;
     removeSelected:()=>void
 }
+
+export interface CartItemProps {
+item:CartItem;
+toggleSelect:(id:number)=>void;
+removeFromCart:(id:number)=>void;
+updateQuantity:(id:number,quantity:number)=>void
+
+}

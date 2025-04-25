@@ -5,7 +5,7 @@ import Productcard from "./Productcard";
 import { Product } from "@/lib/types";
 
 
-const Productlist = () => {
+const Productlist = ({title}:{title:string}) => {
   const [products, setProducts] = useState<Product[]>([]);
 
 
@@ -22,13 +22,15 @@ const Productlist = () => {
 
 
   return (
-    <div>
-      
-      <ul>
-        {products.slice(0,7).map((product) => (
-       <Productcard key={product.id} product={product}/>
+    <div className="px-4 py-4">
+      <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        {products.map((item)=>(
+          <Productcard key={item.id} product={item}/>
         ))}
-      </ul>
+      </div>
+      
+   
     </div>
   );
 };

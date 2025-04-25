@@ -10,6 +10,7 @@ import Cart from "./Cart";
 import useOutSideClick from "@/hooks/useOutSideClick";
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,7 +62,7 @@ const Header = () => {
             <button
               className="cursor-pointer relative"
               // onClick={() => setIsCartOpen((prev) => !prev)}
-            onClick={()=>router.push(`/cart`)}
+              onClick={() => router.push(`/cart`)}
             >
               <FaCartShopping />
               {cart.length > 0 && (
@@ -70,7 +71,7 @@ const Header = () => {
                 </span>
               )}
             </button>
-           
+
             {/* <button
               className="cursor-pointer"
               onClick={() => setIsWishlistOpen((prev) => !prev)}
@@ -107,6 +108,7 @@ const Header = () => {
             wishlist
           </div>
         )}
+        <ThemeToggle />
       </div>
       <div className="md:hidden  flex justify-center items-center mt-2">
         <Searchbar />
