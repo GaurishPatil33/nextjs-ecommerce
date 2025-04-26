@@ -26,7 +26,7 @@ const ListingPage = () =>
         <div className="">
           <Filter />
           <h1 className="mt-12 text-xl font-semibold">
-            Search results for "{query}"
+            Search results for &quot{query} &quot
           </h1>
           <Suspense fallback={<Skeleton />}>
             <Productlist searchParams={query} category={category} />
