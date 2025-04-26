@@ -18,7 +18,7 @@ const Productlist = ({
   title?: string;
   category?: string | null;
   searchParams?: string | null;
-  limit?: number ;
+  limit?: number | null;
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setloading] = useState(true);
@@ -27,13 +27,13 @@ const Productlist = ({
     async function fetchproducts() {
       try {
         if (category) {
-          const res = await fetchProductByCategory(category, limit);
+          const res = await fetchProductByCategory(category, limit ? limit : 0);
           setProducts(res);
         } else if (searchParams) {
           const res = await searchProduct(searchParams);
           setProducts(res);
         } else {
-          const res = await fetchAllProducts(limit);
+          const res = await fetchAllProducts(limit ? limit : 0);
           setProducts(res);
         }
       } catch (error) {
