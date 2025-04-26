@@ -1,30 +1,47 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { fetchCategories } from "@/lib/productfetchingAPI";
 
-const categories = [
-  {
-    name: "men",
-    img: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-];
+interface category {
+  slug: string;
+  name: string;
+  url: string;
+}
 
 const CategoryGrid = () => {
+  const [categories, setcategories] = useState<category[]>([]);
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const res = await fetchCategories();
+        setcategories(res);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
       {categories.map((cat) => (
-        <div
+        <Link
+          href={`/listingPage?cat=${cat.slug}`}
           key={cat.name}
           className=" cursor-pointer hover:scale-105 transition-transform text-center"
         >
-          <Image
+          {/* <Image
             src={cat.img}
             alt={cat.name}
             width={300}
             height={300}
             className=" rounded-lg object-cover w-full"
-          />
+          /> */}
           <span className="mt-2 text-lg font-semibold">{cat.name}</span>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -1,6 +1,8 @@
 import CategoryGrid from "@/components/CategoryGrid";
 import Productlist from "../components/Productlist";
 import Slider from "../components/Slider";
+import { Suspense } from "react";
+import Skeleton from "@/components/Skeleton";
 
 export default async function Home() {
   return (
@@ -11,8 +13,13 @@ export default async function Home() {
       </div>
       <main>
         <CategoryGrid />
-        <Productlist title="Trending" />
-        <Productlist title="Best Sellers" />
+
+        <Suspense fallback={<Skeleton />}>
+          <Productlist title="Trending" />
+        </Suspense>
+        <Suspense fallback={<Skeleton />}>
+          <Productlist title="Best Sellers" />
+        </Suspense>
       </main>
     </div>
   );

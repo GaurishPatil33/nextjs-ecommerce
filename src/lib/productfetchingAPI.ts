@@ -52,3 +52,15 @@ export async function fetchProductByCategory(id: string) {
     }
 
 }
+export async function fetchCategories() {
+    try {
+        const res = await fetch(`https://dummyjson.com/products/categories`)
+        const data = await res.json()
+        return data
+
+    } catch (err) {
+        console.error("error", err)
+        return []
+    }
+
+}

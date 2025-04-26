@@ -10,7 +10,7 @@ import Cart from "./Cart";
 import useOutSideClick from "@/hooks/useOutSideClick";
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
+// import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -108,7 +108,7 @@ const Header = () => {
             wishlist
           </div>
         )}
-        <ThemeToggle />
+        {/* <ThemeToggle /> */}
       </div>
       <div className="md:hidden  flex justify-center items-center mt-2">
         <Searchbar />

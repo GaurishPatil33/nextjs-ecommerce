@@ -59,7 +59,7 @@ const CartPage = () => {
             {/* cart items section */}
             <div className="flex-2 p-5 w-full  ">
               <div className="flex justify-between items-center ">
-                <div className="text-lg font-bold">Cart items</div>
+                <div className="hidden md:block text-lg font-bold">Cart items</div>
                 <div className=" flex items-center justify-between gap-3">
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -72,15 +72,15 @@ const CartPage = () => {
                   </label>
                   <div className=" flex  gap-1 items-center justify-between">
                     {selectedItems.length > 0 && (
-                      <div className=" border-r px-1.5">
-                        <button
-                          className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium "
-                          onClick={handleRemoveSelected}
-                        >
-                          Remove Selected
-                        </button>
-                        
-                      </div>
+                      // <div className=" border-r px-1.5">
+                      <button
+                        className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium  border-r-black"
+                        onClick={handleRemoveSelected}
+                      >
+                        Remove Selected
+                      </button>
+
+                      // </div>
                     )}
                     <button
                       className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium"
