@@ -40,7 +40,7 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
           <h2 className="text-lg font-medium truncate">{product.title}</h2>
 
           <div className="flex items-center gap-2 mt-1">
-            <p className="text-base font-semibold">
+            <p className="text-sm font-semibold">
               {Math.round(product.price)} ₹
             </p>
             <p className=" text-xs  text-green-500">
@@ -50,15 +50,24 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
         </div>
       </Link>
 
-      <div className="absolute bottom-0 left-0  w-full bg-white p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 shadow-md ">
-        <button
-          onClick={handleAddToCart}
-          className="bg-red-500  hover:bg-red-500 text-white w-full px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-md"
-        >
-          Add To Cart
-          <FaCartShopping className=" text-sm" />
-        </button>
-      </div>
+      {product.stock > 0 && (
+        <div className="absolute bottom-0 left-0  w-full bg-white p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 shadow-md ">
+          <button
+            onClick={handleAddToCart}
+            className="bg-red-500  hover:bg-red-500 text-white w-full px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-md"
+          >
+            Add To Cart
+            <FaCartShopping className=" text-sm" />
+          </button>
+        </div>
+      )}
+      {product.stock === 0 && (
+        <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center transform opacity-0 group-hover:opacity-75 transition-opacity duration-300 z-10">
+          <div className="   hover:bg-gray-400 text-black  font-bold px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-lg">
+            Out Of Stock
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import Skeleton from "@/components/Skeleton";
 import Productlist from "@/components/Productlist";
 import Filter from "@/components/Filter";
 
-const SearchProductsPage = () => {
+const ListingPage = () => {
   const router = useSearchParams();
   const query = router.get("search");
   const category = router.get("cat");
@@ -23,12 +23,12 @@ const SearchProductsPage = () => {
   );
 };
 
-const DynamicSearchProductsPage = () => {
+const DynamicListingPage = () => {
   return (
     <Suspense fallback={<Skeleton />}>
-      <SearchProductsPage />
+      <ListingPage />
     </Suspense>
   );
 };
 
-export default DynamicSearchProductsPage;
+export default DynamicListingPage;

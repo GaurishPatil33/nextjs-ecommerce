@@ -1,26 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Productimages from "../../../components/Productimages";
-import {
-  fetchProductByCategory,
-  fetchProductByID,
-} from "@/lib/productfetchingAPI";
+import { fetchProductByID } from "@/lib/productfetchingAPI";
 import { useParams } from "next/navigation";
-import Productcard from "@/components/Productcard";
 import { ProductInterface } from "@/lib/types";
 
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
+import Productlist from "@/components/Productlist";
 
 const Product = () => {
   const params = useParams();
-  const router =useRouter();
+  const router = useRouter();
   const id = Array.isArray(params?.id) ? params.id[0] : params.id;
   const [product, setproduct] = useState<ProductInterface | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [relatedProducts, setRelatedProducts] = useState<ProductInterface[]>(
-    []
-  );
+
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCartStore();
 
@@ -37,7 +32,6 @@ const Product = () => {
     }
   };
 
-  
   const handleQuantity = (a: "i" | "d") => {
     if (a === "d" && quantity > 1) {
       setQuantity((prev) => prev - 1);
@@ -53,10 +47,7 @@ const Product = () => {
       if (id) {
         try {
           const data = await fetchProductByID(id);
-          const related = await fetchProductByCategory(data.category);
-
           setproduct(data);
-          setRelatedProducts(related);
           console.log(data);
         } catch (error) {
           console.error("error", error);
@@ -123,7 +114,7 @@ const Product = () => {
                     +
                   </button>
                 </div>
-                {product.stock < 10 && (
+                {product.stock < 10 && product.stock > 0 && (
                   <div className="text-xs">
                     Only
                     <span className="text-orange-500">{product.stock}</span>
@@ -131,18 +122,18 @@ const Product = () => {
                   </div>
                 )}
               </div>
-              <div className="flex gap-2 ">
+              <div className="flex gap-2 w-full ">
                 <button
                   disabled={product.stock === 0}
                   onClick={handleBuyNow}
-                  className=" w-30 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
+                  className=" w-1/2 py-2 md:px-1 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
                 >
                   {product.stock === 0 ? "Unavailable" : "Buy Now"}
                 </button>
                 <button
                   disabled={product.stock === 0}
                   onClick={handleAddToCart}
-                  className=" w-30 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
+                  className=" w-1/2 py-2 md:py-0 text-sm rounded-3xl ring-1 ring-red-500 text-red-400 hover:bg-red-400 hover:text-white disabled:cursor-not-allowed disabled:bg-red-200 disabled:text-white disabled:ring-none"
                 >
                   {product.stock === 0 ? "Out of Stock" : "Add to Cart"}
                 </button>
@@ -178,18 +169,11 @@ const Product = () => {
         )}
       </div>
       {/* Related Products */}
-      <div className="mt-10">
+      <div className="mt-10 ">
         <h2 className="text-2xl font-semibold">Related Products</h2>
         <div className="h-0.5 bg-gray-100 my-2" />
-        <div className="flex gap-4 overflow-x-auto">
-          {relatedProducts
-            .filter((p) => p.id !== product.id)
-            .slice(0, 7)
-            .map((product) => (
-              <div className="    min-w-44 w-60" key={product.id}>
-                <Productcard product={product} />
-              </div>
-            ))}
+        <div className="flex gap-4 overflow-x-auto mb-5">
+          <Productlist category={product.category} limit={6} />
         </div>
       </div>
     </div>

@@ -15,10 +15,10 @@ export default async function Home() {
         <CategoryGrid />
 
         <Suspense fallback={<Skeleton />}>
-          <Productlist title="Trending" />
+          <Productlist title="Trending"  limit={6}/>
         </Suspense>
         <Suspense fallback={<Skeleton />}>
-          <Productlist title="Best Sellers" />
+          <Productlist title="Best Sellers" limit={6} />
         </Suspense>
       </main>
     </div>

@@ -1,7 +1,8 @@
 
-export async function fetchAllProducts() {
+export async function fetchAllProducts(limit: number) {
     try {
-        const res = await fetch('https://dummyjson.com/products')
+        const url = limit ? `https://dummyjson.com/products?limit=${limit}` : `https://dummyjson.com/products?limit=100`
+        const res = await fetch(url)
         const data = await res.json()
         return data.products
 
@@ -28,9 +29,11 @@ export async function fetchProductByID(id: string) {
 
 export async function searchProduct(id: string) {
     try {
-        const res = await fetch(`https://dummyjson.com/products/search?q=${id}`)
+        // const url = limit ? `https://dummyjson.com/products/search${id}?limit=${limit}` : `https://dummyjson.com/products/category/${id}`;
+        const res = await fetch(`https://dummyjson.com/products/search?q=${id}&limit=100`)
 
         const data = await res.json()
+        console.log(data.products)
         return data.products
 
 
@@ -40,9 +43,10 @@ export async function searchProduct(id: string) {
     }
 
 }
-export async function fetchProductByCategory(id: string) {
+export async function fetchProductByCategory(id: string, limit?: number) {
     try {
-        const res = await fetch(`https://dummyjson.com/products/category/${id}`)
+        const url = limit ? `https://dummyjson.com/products/category/${id}?limit=${limit}` : `https://dummyjson.com/products/category/${id}`;
+        const res = await fetch(url)
         const data = await res.json()
         return data.products
 
