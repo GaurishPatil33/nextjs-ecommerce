@@ -3,12 +3,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchCategories } from "@/lib/productfetchingAPI";
+import { category } from "@/lib/types";
 
-interface category {
-  slug: string;
-  name: string;
-  url: string;
-}
+
 
 const CategoryGrid = () => {
   const [categories, setcategories] = useState<category[]>([]);
@@ -33,13 +30,13 @@ const CategoryGrid = () => {
           key={cat.name}
           className=" cursor-pointer hover:scale-105 transition-transform text-center"
         >
-          {/* <Image
+          <Image
             src={cat.img}
             alt={cat.name}
             width={300}
             height={300}
             className=" rounded-lg object-cover w-full"
-          /> */}
+          />
           <span className="mt-2 text-lg font-semibold">{cat.name}</span>
         </Link>
       ))}

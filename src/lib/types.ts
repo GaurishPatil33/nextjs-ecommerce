@@ -24,6 +24,13 @@ export interface Productlist {
 export interface ProductimageProps {
     images: string[]
 }
+
+export interface category {
+    slug: string;
+    name: string;
+    url: string;
+    img: string
+}
 export interface ProductInterface {
 
     id: number;
@@ -55,14 +62,14 @@ export interface CartStore {
     removeFromCart: (id: number) => void;
     clearCart: () => void;
     toggleSelect: (id: number) => void;
-    updateQuantity:(id:number,quantity:number )=>void;
-    removeSelected:()=>void
+    updateQuantity: (id: number, quantity: number) => void;
+    removeSelected: () => void
 }
 
 export interface CartItemProps {
-item:CartItem;
-toggleSelect:(id:number)=>void;
-removeFromCart:(id:number)=>void;
-updateQuantity:(id:number,quantity:number)=>void
+    item: CartItem;
+    toggleSelect: (id: number) => void;
+    removeFromCart: (id: number) => void;
+    updateQuantity: (id: number, quantity: number) => void
 
 }
