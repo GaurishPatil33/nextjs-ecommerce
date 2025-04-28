@@ -19,7 +19,7 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
     <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md transition-shadow duration-300">
       <div
         onClick={() => setWishlisted(!wishlisted)}
-        className={` absolute top-4 left-4 p-2 rounded-full opacity-70 md:opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition z-10 ${
+        className={` absolute top-4 right-4 p-2 rounded-full opacity-70 md:opacity-0 group-hover:opacity-100 hover:bg-gray-100 transition z-10 ${
           wishlisted ? "bg-red-100 text-red-500" : "bg-white hover:bg-gray-100"
         }`}
       >
@@ -32,9 +32,13 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
               src={product.thumbnail}
               alt={product.title}
               fill
+              priority
               className=" object-contain rounded-md"
               sizes="(max-width: 768px) 100vw, 300px"
             />
+            <div className="absolte left-4 bottom-4 text-xs flex gap-1">
+              {product.rating} <div className="text-yellow-200">★</div>{" "}
+            </div>
           </div>
 
           <h2 className="text-lg font-medium truncate">{product.title}</h2>
@@ -48,6 +52,13 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
             </p>
           </div>
         </div>
+        {product.stock === 0 && (
+          <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center  opacity-0 group-hover:opacity-75 transition-opacity duration-300 z-10">
+            <div className="   hover:bg-gray-400 text-black   px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-lg">
+              Out Of Stock
+            </div>
+          </div>
+        )}
       </Link>
 
       {product.stock > 0 && (
@@ -59,13 +70,6 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
             Add To Cart
             <FaCartShopping className=" text-sm" />
           </button>
-        </div>
-      )}
-      {product.stock === 0 && (
-        <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center transform opacity-0 group-hover:opacity-75 transition-opacity duration-300 z-10">
-          <div className="   hover:bg-gray-400 text-black  font-bold px-4 py-2 text-sm font-medium flex items-center gap-2 rounded-lg">
-            Out Of Stock
-          </div>
         </div>
       )}
     </div>

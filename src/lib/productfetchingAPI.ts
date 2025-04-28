@@ -1,5 +1,5 @@
 
-export async function fetchAllProducts(limit: number) {
+export async function fetchAllProducts(limit?: number) {
     try {
         const url = limit ? `https://dummyjson.com/products?limit=${limit}` : `https://dummyjson.com/products?limit=100`
         const res = await fetch(url)
@@ -33,7 +33,7 @@ export async function searchProduct(id: string) {
         const res = await fetch(`https://dummyjson.com/products/search?q=${id}&limit=100`)
 
         const data = await res.json()
-        console.log(data.products)
+        // console.log(data.products)
         return data.products
 
 
