@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Product } from "@/lib/types";
 import ProductCard from "@/components/Productcard"; // This is where you'll display individual products
 import Skeleton from "@/components/Skeleton";
