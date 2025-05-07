@@ -41,13 +41,13 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
             </div>
           </div>
 
-          <h2 className="text-lg font-medium truncate">{product.title}</h2>
+          <h2 className="text-lg font-medium truncate ">{product.title}</h2>
 
           <div className="flex items-center gap-2 mt-1">
-            <p className="text-sm font-semibold">
+            <p className="text-[13px] font-semibold">
               {Math.round(product.price)} ₹
             </p>
-            <p className=" text-xs  text-green-500">
+            <p className=" text-[10px]  text-green-500">
               {product.discountPercentage} % Off
             </p>
           </div>

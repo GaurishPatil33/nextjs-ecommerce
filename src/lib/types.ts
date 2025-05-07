@@ -44,6 +44,7 @@ export interface ProductInterface {
     description: string;
     reviews: Review[];
     brand: string
+    rating:number
 }
 export interface Review {
     reviewerName: string;
@@ -51,7 +52,7 @@ export interface Review {
     rating: number;
     comment: string
 }
-export interface CartItem extends ProductInterface {
+export interface CartItem extends Product {
     quantity: number;
     selected?: boolean
 }

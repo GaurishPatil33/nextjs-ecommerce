@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 // import Footer from "../components/Footer"
 import Footer from "@/components/foot";
 import ThemeProvider from "@/components/providers/ThemeProvider";
+import { MantineProvider } from "@mantine/core";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,18 +27,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <html lang="en" >
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col justify-between bg-white text-black dark:bg-gray-900 dark:text-white`}
       >
-        <ThemeProvider >
-        <Navbar />
+        {/* <ThemeProvider > */}
+        <MantineProvider theme={{}} withGlobalClasses withCssVariables defaultColorScheme="light">
+          <Navbar />
 
-        {children}
-        <Footer />
-        </ThemeProvider>
+          {children}
+
+          <Footer />
+        </MantineProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

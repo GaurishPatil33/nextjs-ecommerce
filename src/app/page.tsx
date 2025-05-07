@@ -15,10 +15,12 @@ export default async function Home() {
         <CategoryGrid />
 
         <Suspense fallback={<Skeleton />}>
-          <Productlist title="Trending"  limit={6}/>
-        </Suspense>
-        <Suspense fallback={<Skeleton />}>
-          <Productlist title="Best Sellers" limit={6} />
+          <div className="p-4">
+            <h2 className="text-2xl font-bold mb-4">Trending</h2>
+            <Productlist limit={6} />
+            <h2 className="text-2xl font-bold mb-4">Best Sellers</h2>
+            <Productlist limit={6} />
+          </div>
         </Suspense>
       </main>
     </div>

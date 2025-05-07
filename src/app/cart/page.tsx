@@ -58,8 +58,8 @@ const CartPage = () => {
           <div className="flex flex-col lg:flex-row gap-8 md:gap-10 py-8">
             {/* cart items section */}
             <div className="flex-2 p-5 w-full  ">
-              <div className="flex justify-between items-center ">
-                <div className="hidden md:block text-lg font-bold">Cart items</div>
+              <div className="flex justify-between  items-center ">
+                <div className="  text-lg font-bold">Cart items</div>
                 <div className=" flex items-center justify-between gap-3">
                   <label className="inline-flex items-center cursor-pointer">
                     <input
@@ -70,17 +70,16 @@ const CartPage = () => {
                     />
                     <span className="ml-2 text-sm">Select All</span>
                   </label>
-                  <div className=" flex  gap-1 items-center justify-between">
+                  <div className=" flex  gap-1 items-center justify-centre">
                     {selectedItems.length > 0 && (
-                      // <div className=" border-r px-1.5">
-                      <button
-                        className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium  border-r-black"
-                        onClick={handleRemoveSelected}
-                      >
-                        Remove Selected
-                      </button>
-
-                      // </div>
+                      <div className=" border-r px-1.5 flex items-center justify-center">
+                        <button
+                          className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium"
+                          onClick={handleRemoveSelected}
+                        >
+                          Remove Selected
+                        </button>
+                      </div>
                     )}
                     <button
                       className="text-red-500 hover:text-red-700 text-xs md:text-sm font-medium"
@@ -105,7 +104,7 @@ const CartPage = () => {
             </div>
 
             {/* price details */}
-            <div className="flex-1 flex flex-col gap-6 bg-gray-50 p-5 rounded-lg">
+            <div className="flex-1 flex flex-col gap-6 px-6 bg-gray-50 p-5 rounded-lg">
               <h2 className="text-xl font-bold">Price Details</h2>
               <div className="flex justify-between ">
                 <p>Price ({selectedItems.length} items)</p>

@@ -8,12 +8,13 @@ import { ProductInterface } from "@/lib/types";
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
 import Productlist from "@/components/Productlist";
+import productsData from "@/data/data";
 
-const Product = () => {
+const ProductPage = () => {
   const params = useParams();
   const router = useRouter();
   const id = Array.isArray(params?.id) ? params.id[0] : params.id;
-  const [product, setproduct] = useState<ProductInterface | null>(null);
+  const [product, setproduct] = useState<ProductInterface>();
   const [quantity, setQuantity] = useState(1);
 
   const [loading, setLoading] = useState(true);
@@ -171,12 +172,12 @@ const Product = () => {
       {/* Related Products */}
       <div className="mt-10 ">
         <h2 className="text-2xl font-semibold">Related Products</h2>
-        <div className="h-0.5 bg-gray-100 my-2" />
-        <div className="flex gap-4 overflow-x-auto mb-5">
-          <Productlist category={product.category} limit={6} />
-        </div>
+        <div className="h-0.5 bg-gray-100 mb-3" />
+        {/* <div className="flex gap-4 overflow-x-auto mb-5"> */}
+          <Productlist type="productsCorosel" category={product.category} limit={6} />
+        {/* </div> */}
       </div>
     </div>
   );
 };
-export default Product;
+export default ProductPage;

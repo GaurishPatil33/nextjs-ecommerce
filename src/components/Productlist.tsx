@@ -9,20 +9,32 @@ import Productcard from "./Productcard";
 import { Product } from "@/lib/types";
 import Skeleton from "./Skeleton";
 
-const Productlist = ({
-  title,
-  category,
-  search,
-  limit,
-  product,
-  sort,
-}: {
+interface ProductlistProps {
   title?: string;
   category?: string | null;
   search?: string | null;
   limit?: number;
   product?: Product[];
   sort?: string | null;
+  type?: string;
+  filters?: {
+    brand?: string | null;
+    minPrice?: number;
+    maxPrice?: number;
+    rating?: number;
+    discount?: number;
+  };
+}
+
+const Productlist: React.FC<ProductlistProps> = ({
+  title,
+  category,
+  search,
+  limit,
+  product,
+  sort,
+  filters,
+  type,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setloading] = useState(true);
@@ -30,6 +42,7 @@ const Productlist = ({
   useEffect(() => {
     async function fetchproducts() {
       try {
+        console.log(type);
         let fetchedProduct: Product[] = [];
         if (product && product.length > 0) {
           fetchedProduct = product;
@@ -41,8 +54,23 @@ const Productlist = ({
         } else {
           fetchedProduct = await fetchAllProducts(limit);
         }
-        console.log(sort);
+
+        if (filters) {
+          console.log(filters);
+          const { brand, minPrice, maxPrice, rating, discount } = filters;
+          fetchedProduct = fetchedProduct.filter((p) => {
+            return (
+              (!brand || p.brand === brand) &&
+              (!minPrice || p.price >= minPrice) &&
+              (!maxPrice || p.price <= maxPrice) &&
+              (!rating || (p.rating || 0) >= rating) &&
+              (!discount || (p.discountPercentage || 0) >= discount)
+            );
+          });
+        }
+
         if (sort) {
+          console.log(sort);
           switch (sort) {
             case "price-asc":
               fetchedProduct.sort((a, b) => a.price - b.price);
@@ -70,7 +98,7 @@ const Productlist = ({
 
     fetchproducts();
     // console.log("products from filters ", products);
-  }, [category, search, limit, product, sort]);
+  }, [category, search, limit, product, sort, filters]);
 
   useEffect(() => {
     if (!products.length || !sort) return;
@@ -102,9 +130,18 @@ const Productlist = ({
   return (
     <div className="px-4 py-4">
       {title && <h2 className="text-2xl font-bold mb-4">{title}</h2>}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6  overflow-x-auto gap-4 pb-4">
+      {/* <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5  overflow-x-auto gap-4 pb-4"> */}
+      <div
+        className={
+          type === "productsCorosel"
+            ? "  flex gap-4 overflow-x-auto  pb-2 "
+            : "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+        }
+      >
         {products?.map((item) => (
-          <Productcard key={item.id} product={item} />
+          <div className={"min-w-44 w-60"} key={item.id}>
+            <Productcard product={item} />
+          </div>
         ))}
       </div>
     </div>
