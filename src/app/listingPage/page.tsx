@@ -46,7 +46,7 @@ const ListingPage = () => {
   );
 
   const [products, setproducts] = useState<Product[]>([]);
-  const [filterProducts, setFilterProducts] = useState<Product[]>([]);
+  // const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   // const [categoriesSet, setCategoriesSet] = useState<string[]>([]);
 
   useEffect(() => {

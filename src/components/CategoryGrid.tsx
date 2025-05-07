@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { fetchCategories } from "@/lib/productfetchingAPI";
 import { category } from "@/lib/types";

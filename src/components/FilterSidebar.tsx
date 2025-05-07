@@ -37,27 +37,27 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
   const search = searchParams.get("search");
   const selectedCategories = useMemo(
     () => new Set(searchParams.getAll("cats")),
-    [searchParams.toString()]
+    [searchParams]
   );
   const selectedBrands = useMemo(
     () => new Set(searchParams.getAll("brand")),
-    [searchParams.toString()]
+    [searchParams]
   );
   const selectedRatings = useMemo(
     () => new Set(searchParams.getAll("ratings")),
-    [searchParams.toString()]
+    [searchParams]
   );
   const selectedDiscount = useMemo(
     () => Number(searchParams.get("discount")),
-    [searchParams.toString()]
+    [searchParams]
   );
   const selectedMinPrice = useMemo(
     () => Number(searchParams.get("minPrice")) || priceBounds.min,
-    [searchParams.toString(), priceBounds.min]
+    [searchParams, priceBounds.min]
   );
   const selectedMaxPrice = useMemo(
     () => Number(searchParams.get("maxPrice")) || priceBounds.max,
-    [searchParams.toString(), priceBounds.max]
+    [searchParams, priceBounds.max]
   );
 
   // const search = searchParams.get("search");

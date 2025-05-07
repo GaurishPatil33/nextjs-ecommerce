@@ -8,7 +8,6 @@ import { ProductInterface } from "@/lib/types";
 import { useCartStore } from "@/lib/store/cartStore";
 import { useRouter } from "next/navigation";
 import Productlist from "@/components/Productlist";
-import productsData from "@/data/data";
 
 const ProductPage = () => {
   const params = useParams();

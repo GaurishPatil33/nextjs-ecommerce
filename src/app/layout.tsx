@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 // import Footer from "../components/Footer"
 import Footer from "@/components/foot";
-import ThemeProvider from "@/components/providers/ThemeProvider";
 import { MantineProvider } from "@mantine/core";
 
 const geistSans = Geist({
