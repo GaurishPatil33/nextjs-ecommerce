@@ -62,7 +62,7 @@ const Header = () => {
             <button
               className="cursor-pointer relative"
               // onClick={() => setIsCartOpen((prev) => !prev)}
-              onClick={() => router.push(`/cart`)}
+              onClick={() => router.push(`/main/cart`)}
             >
               <FaCartShopping />
               {cart.length > 0 && (

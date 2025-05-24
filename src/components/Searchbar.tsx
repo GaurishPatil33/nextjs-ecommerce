@@ -12,7 +12,7 @@ const Searchbar = () => {
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
     if(!searchterm.trim())return;
-    router.push(`/listingPage?search=${encodeURIComponent(searchterm)}`);
+    router.push(`/main/listingPage?search=${encodeURIComponent(searchterm)}`);
   };
 
   return (

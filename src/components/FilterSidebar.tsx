@@ -17,6 +17,7 @@ import {
   Accordion,
 } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface FilterSidebarProps {
   products: Product[];
@@ -32,6 +33,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
     min: 0,
     max: 1000,
   });
+  const isMobile = useMediaQuery("(min-width:768px)");
 
   // Selected filters from URL (or default)
   const search = searchParams.get("search");
@@ -127,7 +129,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
             <div className="flex justify-between items-center">
               <Title order={2}>Filtres</Title>
               <Button
-                size={"xs"}
+                size={"sm"}
                 color="red"
                 variant={"subtle"}
                 onClick={clearAll}
@@ -140,7 +142,11 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
 
           <Divider />
 
-          <Accordion multiple variant="separates" defaultValue={["brands"]}>
+          <Accordion
+            multiple={isMobile}
+            variant="separated"
+            defaultValue={isMobile ? ["brands"] : []}
+          >
             {/* categories*/}
             <Accordion.Item value="category">
               <Accordion.Control>
@@ -149,10 +155,15 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
               <Accordion.Panel>
                 <Checkbox.Group
                   value={Array.from(selectedCategories)}
-                  onChange={(val) => updateParam("cat", val)}
+                  onChange={(val) => updateParam("cats", val)}
                 >
-                  {categories.map((cat) => (
-                    <Checkbox key={cat} label={cat} value={cat} />
+                  {categories.map((cat, i) => (
+                    <Checkbox
+                      icon={() => false}
+                      key={i}
+                      label={cat}
+                      value={cat}
+                    />
                   ))}
                 </Checkbox.Group>
               </Accordion.Panel>
@@ -169,7 +180,12 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
                   value={Array.from(selectedBrands)}
                 >
                   {brands.map((brand, i) => (
-                    <Checkbox key={i} label={brand} value={brand} />
+                    <Checkbox
+                      icon={() => false}
+                      key={i}
+                      label={brand}
+                      value={brand}
+                    />
                   ))}
                 </Checkbox.Group>
               </Accordion.Panel>
@@ -183,6 +199,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
               min={priceBounds.min}
               max={priceBounds.max}
               step={10}
+              px={15}
               value={[selectedMinPrice, selectedMaxPrice]}
               onChangeEnd={([min, max]) => {
                 // console.log(min);
@@ -196,8 +213,14 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
                 }
               }}
               marks={[
-                { value: priceBounds.min, label: `${priceBounds.min}` },
-                { value: priceBounds.max, label: `${priceBounds.max}` },
+                {
+                  value: priceBounds.min,
+                  label: `${Math.round(priceBounds.min)}`,
+                },
+                {
+                  value: priceBounds.max,
+                  label: `${Math.round(priceBounds.max)}`,
+                },
               ]}
             />
             <Group grow mt={"md"}>
@@ -205,7 +228,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
                 label="Min Price"
                 min={priceBounds.min}
                 max={selectedMaxPrice}
-                value={selectedMinPrice}
+                value={Math.round(selectedMinPrice)}
                 onChange={(e) =>
                   updateSingleParam("minPrice", e?.toString() || "")
                 }
@@ -214,7 +237,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
                 label="Max Price"
                 min={selectedMinPrice}
                 max={priceBounds.max}
-                value={selectedMaxPrice}
+                value={Math.round(selectedMaxPrice)}
                 onChange={(e) =>
                   updateSingleParam("maxPrice", e?.toString() || "")
                 }
@@ -231,6 +254,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
             >
               {[...Array(4)].reverse().map((_, i) => (
                 <Checkbox
+                  icon={() => false}
                   key={i}
                   label={`${i + 1} ★ & above`}
                   value={`${i + 1}`}

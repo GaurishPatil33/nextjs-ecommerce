@@ -25,7 +25,7 @@ const Productcard: React.FC<ProductcardProps> = ({ product }) => {
       >
         <FaRegHeart />
       </div>
-      <Link href={`/product/${product.id}`} className=" block group ">
+      <Link href={`/main/product/${product.id}`} className=" block group ">
         <div className="m-1 p-4 h-full ">
           <div className="relative w-full h-40">
             <Image

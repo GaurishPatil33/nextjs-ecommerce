@@ -1,3 +1,4 @@
+import { DefaultSession, DefaultUser } from "next-auth";
 
 
 export interface ProductcardProps {
@@ -44,7 +45,7 @@ export interface ProductInterface {
     description: string;
     reviews: Review[];
     brand: string
-    rating:number
+    rating: number
 }
 export interface Review {
     reviewerName: string;
@@ -73,4 +74,26 @@ export interface CartItemProps {
     removeFromCart: (id: number) => void;
     updateQuantity: (id: number, quantity: number) => void
 
+}
+
+
+declare module "next-auth" {
+    interface Session {
+        user: {
+            name?: string | null
+            email?: string | null
+            image?: string | null
+            role?: "admin" | "user"
+        } & DefaultSession["user"]
+    }
+
+    interface User extends DefaultUser{
+        role?:"admin"|"user"
+    }
+}
+
+declare module "next-auth/jwt"{
+    interface JWT{
+        role?:"admin"|"user"
+    }
 }

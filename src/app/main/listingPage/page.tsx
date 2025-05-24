@@ -29,6 +29,7 @@ const ListingPage = () => {
 
   const query = useMemo(() => searchParams.get("search"), [searchParams]);
   const category = useMemo(() => searchParams.get("cat"), [searchParams]);
+  const categories = useMemo(() => searchParams.getAll("cats"), [searchParams]);
   const brands = useMemo(() => searchParams.getAll("brand"), [searchParams]);
   const sort = useMemo(() => searchParams.get("sort"), [searchParams]);
   const minPrice = useMemo(
@@ -39,13 +40,16 @@ const ListingPage = () => {
     () => Number(searchParams.get("maxPrice")) || Infinity,
     [searchParams]
   );
-  const rating = useMemo(() => searchParams.getAll("ratings"), [searchParams]);
+  const ratings = useMemo(() => searchParams.getAll("ratings"), [searchParams]);
   const discount = useMemo(
     () => Number(searchParams.getAll("discount")) || 0,
     [searchParams]
   );
 
   const [products, setproducts] = useState<Product[]>([]);
+  const [mobileFilters, setMobileFilters] = useState(false);
+  const [mobileSort, setMobileSort] = useState(false);
+
   // const [filterProducts, setFilterProducts] = useState<Product[]>([]);
   // const [categoriesSet, setCategoriesSet] = useState<string[]>([]);
 
@@ -77,9 +81,9 @@ const ListingPage = () => {
     if (brands.length > 0) {
       filtered = filtered.filter((p) => brands.includes(p.brand));
     }
-    if (category?.length) {
-      console.log(category);
-      filtered = filtered.filter((p) => category.includes(p.category));
+    if (categories.length > 0) {
+      console.log(categories);
+      filtered = filtered.filter((p) => categories.includes(p.category));
     }
     if (minPrice || maxPrice) {
       filtered = filtered.filter(
@@ -87,8 +91,12 @@ const ListingPage = () => {
       );
     }
 
-    if (rating.length > 0) {
-      filtered = filtered.filter((p) => rating.includes(p.rating.toString()));
+    if (ratings.length > 0) {
+      const minRating = Math.min(...ratings.map(Number));
+      filtered = filtered.filter(
+        (p) => (p.rating || 0) >= minRating
+        // (p.rating.toString() || 0) >= ratings.toString()
+      );
     }
 
     if (discount > 0) {
@@ -114,7 +122,16 @@ const ListingPage = () => {
     // setFilterProducts(filtered);
     console.log("filtered:", filtered);
     return filtered;
-  }, [products, brands, category, minPrice, maxPrice, rating, discount, sort]);
+  }, [
+    products,
+    brands,
+    categories,
+    minPrice,
+    maxPrice,
+    ratings,
+    discount,
+    sort,
+  ]);
 
   // useEffect(() => {
   //   let filtered = [...products];
@@ -178,7 +195,7 @@ const ListingPage = () => {
   // ]);
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 xl:px-32 mb-2">
+    <div className="relative px-4 md:px-6 lg:px-16 xl:px-32 mb-2">
       <h1 className=" text-xl font-semibold">
         {query
           ? `Search results for "${query}"`
@@ -186,13 +203,46 @@ const ListingPage = () => {
           ? `Products in category "${category}"`
           : "All Products"}
       </h1>
-      <div className="flex gap-3">
+
+      {/* mobile filter and sort option */}
+      <div className=" flex justify-between items-center gap-2">
+        <button
+          onClick={() => {
+            setMobileFilters((prev) => !prev);
+            setMobileSort(false);
+          }}
+          className="md:hidden w-1/2 mb-4 px-4 py-2 bg-gray-100 border rounded"
+        >
+          Filters
+        </button>
+        <button
+          onClick={() => {
+            setMobileSort((prev) => !prev);
+            setMobileFilters(false);
+          }}
+          className="md:hidden w-1/2 mb-4 px-4 py-2 bg-gray-100 border rounded"
+        >
+          Sort by
+        </button>
+      </div>
+      <div className="flex justify-between">
+        <div className=" absolute z-11 md:hidden mb-4 flex gap-3 bg-gray-50 rounded">
+          {mobileFilters && <FilterSidebar products={products} />}
+        </div>
+        <div className=" absolute z-11 md:hidden mb-4 flex gap-3  right-2">
+          {mobileSort && <Sort />}
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-4 ">
         <div className="hidden md:block gap-3 ">
           {/* <Filter products={products} /> */}
           <FilterSidebar products={products} />
         </div>
-        <div className="">
-          <Sort />
+        <div className=" md:w-3/4 w-full">
+          <div className="hidden md:block">
+            <Sort />
+          </div>
           {/* <Productlist1 product={filterProducts} /> */}
           <Productlist1 product={filteredProducts} />
         </div>

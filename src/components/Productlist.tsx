@@ -34,7 +34,7 @@ const Productlist: React.FC<ProductlistProps> = ({
   // product,
   // sort,
   // filters,
-  // type,
+  type,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setloading] = useState(true);
@@ -138,14 +138,14 @@ const Productlist: React.FC<ProductlistProps> = ({
       {/* <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5  overflow-x-auto gap-4 pb-4"> */}
       <div
         className={
-          // type === "productsCorosel"
-          //   ? "  flex gap-4 overflow-x-auto  pb-2 "
-          //   : 
-            "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
+          type === "productsCorosel"
+            ? "  flex gap-4 overflow-x-auto  pb-2 "
+            : 
+            "grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-4  overflow-x-auto gap-4 pb-4"
         }
       >
         {products?.map((item) => (
-          <div className={"min-w-44 w-60"} key={item.id}>
+          <div className={"min-w-44 "} key={item.id}>
             <Productcard product={item} />
           </div>
         ))}

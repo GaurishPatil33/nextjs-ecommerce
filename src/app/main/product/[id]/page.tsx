@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Productimages from "../../../components/Productimages";
+import Productimages from "@/components/Productimages";
 import { fetchProductByID } from "@/lib/productfetchingAPI";
 import { useParams } from "next/navigation";
 import { ProductInterface } from "@/lib/types";
@@ -173,7 +173,11 @@ const ProductPage = () => {
         <h2 className="text-2xl font-semibold">Related Products</h2>
         <div className="h-0.5 bg-gray-100 mb-3" />
         {/* <div className="flex gap-4 overflow-x-auto mb-5"> */}
-          <Productlist type="productsCorosel" category={product.category} limit={6} />
+        <Productlist
+          type="productsCorosel"
+          category={product.category}
+          limit={6}
+        />
         {/* </div> */}
       </div>
     </div>

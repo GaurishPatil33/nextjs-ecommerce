@@ -11,6 +11,7 @@ export async function fetchAllProducts(limit?: number) {
     } catch (err) {
         console.error("error fetching ", err)
         const data = productsData.slice(0, limit ? limit : 40)
+        // const data = productsData
         return data
     }
 
