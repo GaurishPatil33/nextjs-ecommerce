@@ -91,13 +91,13 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ products }) => {
     if (prices.length > 0) {
       setPriceBounds({ min, max });
     }
-  }, [products, searchParams]);
+  }, [products, searchParams,selectedCategories]);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
     // console.log(params.toString());
     setinitailParams(params.toString());
-  }, [search]);
+  }, [searchParams]);
 
   // helper to update URL
   // multivalue params

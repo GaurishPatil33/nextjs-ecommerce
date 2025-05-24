@@ -1,6 +1,5 @@
 import React from "react";
 import AdminSidebar from "@/components/admin components/AdminSidebar";
-import { Geist, Geist_Mono } from "next/font/google";
 
 // export default function RootLayout({
 //   children,

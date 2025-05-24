@@ -1,6 +1,6 @@
 import { Select, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 
 const sortOptions = [
   { label: "Price: Low to High", value: "price-asc" },

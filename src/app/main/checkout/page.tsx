@@ -1,17 +1,6 @@
 "use client";
 import { useCartStore } from "@/lib/store/cartStore";
-import {
-  Button,
-  Container,
-  Title,
-  Notification,
-  Stack,
-  Paper,
-  TextInput,
-  Group,
-  Text,
-  Divider,
-} from "@mantine/core";
+
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 

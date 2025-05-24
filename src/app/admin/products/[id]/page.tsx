@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import ProductForm from "@/components/admin components/ProductForm";
 import axios from "axios";
 import { useParams } from "next/navigation";
@@ -34,12 +34,11 @@ const EditProduct = () => {
   useEffect(() => {
     if (!id) return;
     axios.get(`/api/product?id=${id}`).then((res) => setProduct(res.data));
-    console.log(product)
   }, [id]);
 
-useEffect(() => {
-  console.log("Fetched product:", product);
-}, [product]);
+  useEffect(() => {
+    console.log("Fetched product:", product);
+  }, [product]);
 
   return (
     <div className="p-6">

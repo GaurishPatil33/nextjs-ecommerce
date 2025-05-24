@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -18,7 +18,8 @@ const LoginPage = () => {
       if (!res.ok) throw new Error("Login failed");
       router.push("/");
     } catch (err) {
-      alert("Invalid credentials");
+      alert(`Invalid credentials`);
+      console.log(err);
     }
   };
   return (

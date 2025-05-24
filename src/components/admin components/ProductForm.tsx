@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Skeleton from "@/components/Skeleton";
 
 interface Review {
   userId: string;
@@ -35,8 +34,6 @@ interface ProductFormProps {
 const ProductForm = ({ product }: ProductFormProps) => {
   const isEdit = !!product?._id;
 
-  const [loading, setLoading] = useState(true);
-
   const [title, setTitle] = useState(product?.title || "");
   const [description, setDescription] = useState(product?.description || "");
   const [price, setPrice] = useState(product?.price || "");
@@ -67,12 +64,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
       if (isEdit) {
         await axios.put("/api/product", { ...data, _id: product._id });
       } else {
-        // await axios.post("/api/product", data);
-        await fetch("/api/product", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
+        await axios.post("/api/product", data);
       }
     } catch (err) {
       console.error("Error:", err);
@@ -89,7 +81,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
       setStock(product.stock || "");
       setCategory(product.category || "");
       setImages(product.images || []);
-      setLoading(false);
+      // setLoading(false);
     }
     console.log("product", product);
   }, [product]);
@@ -173,7 +165,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
         <div className="">
           <div className="block mb-1 font-medium">Product Images</div>
           <input type="file" multiple onChange={uploadImages} />
-          <div className="flex flex-wrap gap-2 mt-2">
+          {/* <div className="flex flex-wrap gap-2 mt-2">
             {images.map((img, i) => (
               <img
                 key={i}
@@ -182,7 +174,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
                 className="w-20 h-20 object-cover border rounded"
               />
             ))}
-          </div>
+          </div> */}
         </div>
         <button
           type="submit"

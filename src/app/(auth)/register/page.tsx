@@ -22,6 +22,7 @@ const RegisterPage = () => {
       router.push('/login');
     } catch (err) {
       alert('Error creating account');
+      console.log(err)
     }
   };
 
