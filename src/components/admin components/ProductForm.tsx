@@ -45,7 +45,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
   const [category, setCategory] = useState(product?.category || "");
   // const [rating, setRating] = useState(product?.rating || "");
   //   const [thumbnail, setThumbnail] = useState(product?.thumbnail || "");
-  const [images, setImages] = useState<string[]>(product?.images || []);
+  // const [images, setImages] = useState<string[]>(product?.images || []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +80,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
       setDiscountPercentage(product.discountPercentage || "");
       setStock(product.stock || "");
       setCategory(product.category || "");
-      setImages(product.images || []);
+      // setImages(product.images || []);
       // setLoading(false);
     }
     console.log("product", product);

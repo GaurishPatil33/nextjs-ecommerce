@@ -20,6 +20,7 @@ export async function GET(req: Request) {
             return Response.json(products)
         }
     } catch (err) {
+        console.log(err)
         return Response.json({ err: "Error fetching" }, { status: 500 })
     }
 }
@@ -67,6 +68,7 @@ export async function DELETE(req: Request) {
             return Response.json({ error: "Missing product ID" }, { status: 400 })
         }
     } catch (err) {
+        console.log(err)
         return Response.json({ err: "Error fetching" }, { status: 500 })
     }
 }

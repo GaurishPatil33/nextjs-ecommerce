@@ -5,12 +5,35 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
+interface Review {
+  userId: string;
+  username: string;
+  comment: string;
+  rating: number;
+  date: string;
+}
+interface ProductInterface {
+  _id?: string;
+  title: string;
+  price: number;
+  discountPercentage: number;
+  stock: number;
+  images: string[];
+  category: string;
+  description: string;
+  reviews: Review[];
+  brand: string;
+  rating: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [showConfirm, setShowConfirm] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductInterface>();
 
   const fetchProducts = async () => {
     try {
@@ -36,7 +59,7 @@ const ProductPage = () => {
     if (!selectedProduct) return;
     try {
       await axios.delete(`/api/product?id=${selectedProduct._id}`);
-      setSelectedProduct(null);
+      setSelectedProduct(undefined);
       setShowConfirm(false);
       fetchProducts();
       // setProducts((prev) => prev.filter((p: any) => p._id !== id));
