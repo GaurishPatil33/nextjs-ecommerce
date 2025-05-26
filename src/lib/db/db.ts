@@ -26,7 +26,7 @@
 // lib/mongodb.js
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
+// const MONGODB_URI = process.env.MONGODB_URI as string;
 
 // if (!MONGODB_URI) {
 //     throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
@@ -51,24 +51,31 @@ const MONGODB_URI = process.env.MONGODB_URI as string;
 //     return cached.conn;
 // }
 
-type MongooseCache = {
-  conn: typeof mongoose | null;
-  promise: Promise<typeof mongoose> | null;
-};
 
-declare global {
-  var mongoose: MongooseCache | undefined;
-}
+const MONGODB_URI = process.env.MONGODB_URI as string;
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
 }
 
-let cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
+// Type definition for the cached connection
+type MongooseCache = {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+};
 
-if (!global.mongoose) {
-  global.mongoose = cached;
+// ✅ Declare the global variable properly with `let` and `const`
+declare global {
+  // eslint-disable-next-line no-var
+  let mongoose: MongooseCache | undefined;
 }
+
+// ✅ Use `let` for global and `const` for cached if not reassigned
+const globalWithMongoose = global as typeof globalThis & { mongoose: MongooseCache };
+
+const cached: MongooseCache = globalWithMongoose.mongoose ?? { conn: null, promise: null };
+
+globalWithMongoose.mongoose = cached;
 
 export async function connectToDatabase() {
   if (cached.conn) return cached.conn;
