@@ -50,7 +50,7 @@ const ProductPage = () => {
     fetchProducts();
   }, []);
 
-  const confirmDelete = (product: any) => {
+  const confirmDelete = (product: ProductInterface) => {
     setSelectedProduct(product);
     setShowConfirm(true);
   };
@@ -96,7 +96,7 @@ const ProductPage = () => {
         </div>
       ) : (
         <div className="grid gap-4">
-          {products.map((p: any) => (
+          {products.map((p: ProductInterface) => (
             <div
               key={p._id}
               className="border p-4 rounded shadow-sm flex items-center justify-between "
