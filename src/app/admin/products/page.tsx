@@ -2,7 +2,7 @@
 import Filters, { FilterOption } from "@/components/admin components/Filters";
 import Confirmationbox from "@/components/Confirmationbox";
 import Skeleton from "@/components/Skeleton";
-import Category from "@/lib/model/Category";
+
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
