@@ -26,7 +26,7 @@ const CategoryGrid = () => {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
       {categories.slice(0,20).map((cat,i) => (
         <Link
-          href={`/listingPage?cat=${cat.slug}`}
+          href={`/main/listingPage?cat=${cat.slug}`}
           key={i}
           className=" cursor-pointer hover:scale-105 transition-transform text-center"
         >

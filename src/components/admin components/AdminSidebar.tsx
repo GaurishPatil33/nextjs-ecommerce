@@ -37,8 +37,8 @@ const AdminSidebar = () => {
               href={l.href}
               key={l.label}
               className={clsx(
-                "block px-3 py-2 rounded hover:bg-red-600",
-                pathname.startsWith(l.href) && "bg-red-500"
+                "block px-3 py-2 rounded hover:bg-gray-100 hover:text-black",
+                pathname.startsWith(l.href) && "bg-gray-300 text-black"
               )}
             >
               {l.label}

@@ -26,7 +26,7 @@ const CartPage = () => {
     if (cart.length === 0) return;
     alert("Proceeding to Checkout!");
     // clearCart();
-    router.push(`/checkout`);
+    router.push(`/main/checkout`);
   };
 
   const handleSelectAll = () => {

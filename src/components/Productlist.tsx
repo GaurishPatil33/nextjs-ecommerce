@@ -133,19 +133,18 @@ const Productlist: React.FC<ProductlistProps> = ({
   if (loading) return <Skeleton />;
 
   return (
-    <div className="px-4 py-4">
+    <div className="px-1 py-2">
       {title && <h2 className="text-2xl font-bold mb-4">{title}</h2>}
       {/* <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5  overflow-x-auto gap-4 pb-4"> */}
       <div
         className={
           type === "productsCorosel"
-            ? "  flex gap-4 overflow-x-auto  pb-2 "
-            : 
-            "grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-4  overflow-x-auto gap-4 pb-4"
+            ? "  flex gap-4 overflow-x-auto  pb-2 pl-1 "
+            : "flex md:grid grid-cols-2 sm:grid-cols-3  lg:grid-cols-4  overflow-x-auto gap-4 pb-4"
         }
       >
         {products?.map((item) => (
-          <div className={"min-w-44 "} key={item.id}>
+          <div className={"ml-1 min-w-40"} key={item.id}>
             <Productcard product={item} />
           </div>
         ))}

@@ -28,7 +28,7 @@ const ProductPage = () => {
   const handleBuyNow = () => {
     if (product) {
       addToCart(product, quantity);
-      router.push(`/cart`);
+      router.push(`/main/checkout`);
     }
   };
 

@@ -1,9 +1,12 @@
 "use client";
+import Filters, { FilterOption } from "@/components/admin components/Filters";
 import Confirmationbox from "@/components/Confirmationbox";
 import Skeleton from "@/components/Skeleton";
+import Category from "@/lib/model/Category";
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { IoSearch } from "react-icons/io5";
 
 interface Review {
   userId: string;
@@ -29,8 +32,24 @@ interface ProductInterface {
 }
 
 const ProductPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<ProductInterface[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchterm, setSearchterm] = useState("");
+
+  const [showFilters, setShowFilters] = useState(false);
+  // const [filters, setFilters] = useState({
+  //   brand: [""] ,
+  //   category: [""],
+  //   inStocks: [""],
+  // });
+  const filterOptions: FilterOption[] = [
+    { label: "Brand", type: "checkbox", options: ["Apple", "Samsung"] },
+    { label: "Category", type: "checkbox", options: [] },
+    { label: "Stock", type: "radio", options: ["In stock", "Out of Stock"] },
+  ];
+  const [selectedFilters, setSelectedFilters] = useState<
+    Record<string, string[]>
+  >({});
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductInterface>();
@@ -72,28 +91,43 @@ const ProductPage = () => {
     <div className="p-6">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold mb-4">Products</h1>
+
         <Link
           href={"/admin/products/new"}
           className="bg-blue-600 text-white px-4 py-2 rounded-md"
         >
-          + Add Product
+          + Add New Product
         </Link>
       </div>
+      <div className="flex justify-between ">
+        <div className=" flex  items-center border px-3 py-1 gap-2 mb-2 max-w-min rounded-md  ">
+          <IoSearch />
+          <input
+            type="text"
+            onChange={(e) => setSearchterm(e.target.value)}
+            value={searchterm}
+            placeholder="Search product..."
+            className="outline-none"
+          />
+        </div>
+        <div className="">
+          <button
+            onClick={() => setShowFilters((prev) => !prev)}
+            className="bg-gray-100 px-4 hover:bg-gray-300 py-1 rounded"
+          >
+            Filters
+          </button>
+        </div>
+      </div>
 
-      {/* <table className="w-full border">
-        <thead>
-          <tr>Name</tr>
-          <tr>Images</tr>
-          <tr>Price</tr>
-          <tr>Stock</tr>
-          <tr>Actions</tr>
-        </thead>
-      </table> */}
-
-      {loading ? (
+      {loading && (
         <div className="">
           <Skeleton />
         </div>
+      )}
+
+      {products.length === 0 ? (
+        <div className="text-gray-500 text-center">No products found.</div>
       ) : (
         <div className="grid gap-4">
           {products.map((p: ProductInterface) => (
@@ -101,7 +135,7 @@ const ProductPage = () => {
               key={p._id}
               className="border p-4 rounded shadow-sm flex items-center justify-between "
             >
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-5">
                 <p className="font-semibold">{p.title}</p>
                 <p className="text-gray-500">{p.brand}</p>
                 <p className="text-gray-500">₹ {p.price}</p>
@@ -125,7 +159,13 @@ const ProductPage = () => {
           ))}
         </div>
       )}
-
+      <Filters
+        isOpen={showFilters}
+        onClose={() => setShowFilters(false)}
+        filters={filterOptions}
+        selectedFilters={selectedFilters}
+        setSelectedFilters={setSelectedFilters}
+      />
       <Confirmationbox
         isOpen={showConfirm}
         onClose={() => setShowConfirm(false)}
