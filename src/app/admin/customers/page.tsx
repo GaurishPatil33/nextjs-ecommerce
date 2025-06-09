@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Package } from "lucide-react";
 import FilterControls from "@/components/admin components/FilterControls";
 import ProductCard from "@/components/admin components/ProductCard";
 
@@ -35,11 +34,11 @@ const ProductDashboard: React.FC = () => {
   const [sortBy, setSortBy] = useState<SortType>("name");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
 
   // your products array (make sure it's imported or defined here)
 const products: Product[] = [

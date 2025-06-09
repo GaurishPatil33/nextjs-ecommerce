@@ -87,11 +87,11 @@ const Sidebar = () => {
       label: "Orders",
       icon: ShoppingCart,
       path: "/admin/orders",
-      // submenu: [
-      //   { id: "all-orders", label: "All Orders", path: "/admin/orders" },
-      //   { id: "pending", label: "Pending", path: "/admin/orders/pending" },
-      //   { id: "shipped", label: "Shipped", path: "/admin/orders/shipped" },
-      // ],
+      submenu: [
+        { id: "all-orders", label: "All Orders", path: "/admin/orders" },
+        { id: "pending", label: "Pending", path: "/admin/orders/pending" },
+        { id: "shipped", label: "Shipped", path: "/admin/orders/shipped" },
+      ],
     },
     {
       id: "customers",
@@ -149,6 +149,7 @@ const Sidebar = () => {
 
   const handleSubmenuClick = (subItem: SubmenuItem) => {
     if (isMobile) {
+      console.log(subItem)
       setIsOpen(false);
     }
   };
@@ -234,7 +235,7 @@ const Sidebar = () => {
         {/* Navigation Menu */}
         <nav className="flex-1 overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
           <div className="px-4 space-y-1">
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <div key={item.id} className="group">
                 <div
                   className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 hover:translate-x-1 ${

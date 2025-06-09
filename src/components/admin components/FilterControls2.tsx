@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Filter, Search, LayoutGrid, List } from "lucide-react";
+import {  Search, LayoutGrid, List } from "lucide-react";
 
 export type FilterOption = { label: string; value: string };
 export type ViewMode = "grid" | "list";

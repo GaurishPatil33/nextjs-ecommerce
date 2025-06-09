@@ -1,16 +1,16 @@
 "use client";
 import React from "react";
-import { Filter, Search, LayoutGrid, List } from "lucide-react";
+import {  Search } from "lucide-react";
 
 interface FilterControlsProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filterType: "all" | "active" | "inactive" | "low_stock" | "out_of_stock";
-  setFilterType: (value: any) => void;
+  setFilterType: (value: string) => void;
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
   sortBy: string;
-  setSortBy: (value: any) => void;
+  setSortBy: (value: string) => void;
   viewMode: "grid" | "list";
   setViewMode: (value: "grid" | "list") => void;
 }
