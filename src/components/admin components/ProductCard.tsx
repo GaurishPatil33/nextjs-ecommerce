@@ -136,7 +136,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-600">Profit</span>
-          <span className="font-semibold text-green-600">${product.profit}</span>
+          <span className="font-semibold text-green-600">
+            ${product.profit}
+          </span>
         </div>
       </div>
 
@@ -151,9 +153,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
       </div>
     </div>
   ) : (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 p-4 flex items-center space-x-6 overflow-x-auto">
-      <div className="text-3xl">{product.image}</div>
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-200 p-4 flex items-center space-x-6 overflow-x-auto flex-col md:flex-row">
       <div className="flex-1">
+        <div className="text-3xl">{product.image}</div>
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-semibold text-gray-900">{product.name}</h3>
           <div className="flex items-center space-x-2">
@@ -166,7 +168,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
           <span>
             Stock:{" "}
             <span
-              className={product.stock < 20 ? "text-red-600 font-medium" : "font-medium"}
+              className={
+                product.stock < 20 ? "text-red-600 font-medium" : "font-medium"
+              }
             >
               {product.stock}
             </span>
@@ -184,11 +188,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
             )}`}
           >
             {getStatusIcon(product.status)}
-            <span className="capitalize">{product.status.replace("_", " ")}</span>
+            <span className="capitalize">
+              {product.status.replace("_", " ")}
+            </span>
           </div>
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between gap-2 w-full">
         <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
           View Details
         </button>

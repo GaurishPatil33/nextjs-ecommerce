@@ -207,7 +207,7 @@ const products: Product[] = [
               : "space-y-4 overflow-x-auto"
           }
         >
-          <div className="o"></div>
+      
           <AnimatePresence >
             {filteredProducts.map((product, index) => (
               <motion.div
