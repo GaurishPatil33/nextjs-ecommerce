@@ -194,7 +194,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, viewMode }) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-2 w-full">
+      <div className="flex items-center justify-between gap-2 w-full md:w-fit">
         <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors">
           View Details
         </button>
