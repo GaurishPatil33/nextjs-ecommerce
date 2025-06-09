@@ -4,6 +4,7 @@ import {
   useSensor,
   useSensors,
   PointerSensor,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -182,7 +183,7 @@ const MediaUploader: React.FC<MediaUploaderProps> = ({ onChange, media }) => {
     onChange(medias.filter((m) => m !== item));
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event:DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 

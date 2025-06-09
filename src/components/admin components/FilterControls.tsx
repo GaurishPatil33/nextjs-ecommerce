@@ -6,11 +6,11 @@ interface FilterControlsProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filterType: "all" | "active" | "inactive" | "low_stock" | "out_of_stock";
-  setFilterType: (value: string) => void;
+  setFilterType: (value: any) => void;
   selectedCategory: string;
-  setSelectedCategory: (value: string) => void;
+  setSelectedCategory: (value: any) => void;
   sortBy: string;
-  setSortBy: (value: string) => void;
+  setSortBy: (value: any) => void;
   viewMode: "grid" | "list";
   setViewMode: (value: "grid" | "list") => void;
 }

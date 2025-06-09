@@ -17,9 +17,9 @@ export async function POST(req: Request) {
 
     const newUpload = await Upload1.create(body);
     return Response.json(newUpload, { status: 201 });
-  } catch (err: any) {
+  } catch (err) {
     console.error("Error in POST /api/testUpload:", err);
-    return Response.json({ error: err.message }, { status: 500 });
+    return Response.json({ error: err }, { status: 500 });
   }
 }
 

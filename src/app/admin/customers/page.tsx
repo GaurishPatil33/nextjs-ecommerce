@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import FilterControls from "@/components/admin components/FilterControls";
 import ProductCard from "@/components/admin components/ProductCard";
