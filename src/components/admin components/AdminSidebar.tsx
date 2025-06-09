@@ -149,7 +149,7 @@ const Sidebar = () => {
 
   const handleSubmenuClick = (subItem: SubmenuItem) => {
     if (isMobile) {
-      console.log(subItem)
+      console.log(subItem);
       setIsOpen(false);
     }
   };
@@ -222,7 +222,7 @@ const Sidebar = () => {
         <div className="p-4 border-b border-slate-700/50">
           <button
             className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2.5 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:scale-102 active:scale-98 hover:shadow-xl"
-            onClick={()=>setIsOpen(false)}
+            onClick={() => setIsOpen(false)}
           >
             <Plus size={16} />
 
@@ -237,31 +237,31 @@ const Sidebar = () => {
           <div className="px-4 space-y-1">
             {menuItems.map((item) => (
               <div key={item.id} className="group">
-                <div
-                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 hover:translate-x-1 ${
-                    activeItem === item.id
-                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                      : "hover:bg-slate-700/50 text-slate-300 hover:text-white"
-                  }`}
-                  onClick={() => handleItemClick(item)}
-                >
-                  <div className="flex items-center space-x-3">
-                    <item.icon size={18} />
+                <Link href={item.path}>
+                  <div
+                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all duration-200 hover:translate-x-1 ${
+                      activeItem === item.id
+                        ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                        : "hover:bg-slate-700/50 text-slate-300 hover:text-white"
+                    }`}
+                    onClick={() => handleItemClick(item)}
+                  >
+                    <div className="flex items-center space-x-3">
+                      <item.icon size={18} />
 
-                    <Link href={item.path}>
                       <span className="font-medium">{item.label}</span>
-                    </Link>
-                  </div>
-                  {item.submenu && (
-                    <div
-                      className={`transition-transform duration-200 ${
-                        expandedSections[item.id] ? "rotate-180" : "rotate-0"
-                      }`}
-                    >
-                      <ChevronDown size={16} />
                     </div>
-                  )}
-                </div>
+                    {item.submenu && (
+                      <div
+                        className={`transition-transform duration-200 ${
+                          expandedSections[item.id] ? "rotate-180" : "rotate-0"
+                        }`}
+                      >
+                        <ChevronDown size={16} />
+                      </div>
+                    )}
+                  </div>
+                </Link>
 
                 {/* Submenu */}
                 {item.submenu && (

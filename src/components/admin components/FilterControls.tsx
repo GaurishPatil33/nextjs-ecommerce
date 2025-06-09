@@ -2,15 +2,19 @@
 import React from "react";
 import {  Search } from "lucide-react";
 
+type FilterType = "all" | "active" | "inactive" | "low_stock" | "out_of_stock";
+// type ViewMode = "grid" | "list";
+type SortType = "name" | "price" | "stock" | "sold" | "profit" | "rating";
+
 interface FilterControlsProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   filterType: "all" | "active" | "inactive" | "low_stock" | "out_of_stock";
-  setFilterType: (value: any) => void;
+  setFilterType: (value: FilterType) => void;
   selectedCategory: string;
-  setSelectedCategory: (value: any) => void;
+  setSelectedCategory: (value: string) => void;
   sortBy: string;
-  setSortBy: (value: any) => void;
+  setSortBy: (value: SortType) => void;
   viewMode: "grid" | "list";
   setViewMode: (value: "grid" | "list") => void;
 }
@@ -49,7 +53,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({
           {/* Filter by Status */}
           <select
             value={filterType}
-            onChange={(e) => setFilterType(e.target.value )}
+            onChange={(e) => setFilterType(e.target.value as FilterType)}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="all">All Status</option>
@@ -76,7 +80,7 @@ const FilterControls: React.FC<FilterControlsProps> = ({
         <div className="flex items-center space-x-3">
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value )}
+            onChange={(e) => setSortBy(e.target.value  as SortType)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
           >
             <option value="name">Sort by Name</option>

@@ -261,7 +261,7 @@ const Dashboard: React.FC = () => {
                 Dashboard
               </h1>
               <p className="text-gray-600">
-                Welcome back! Here's what's happening with your store.
+                Welcome back! Here&rsquo;s what&rsquo;s happening with your store.
               </p>
             </div>
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
