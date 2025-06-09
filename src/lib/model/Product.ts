@@ -13,7 +13,13 @@ const ProductSchema = new Schema({
     stock: { type: Number, default: 0, min: 0 },
     rating: { type: Number, default: 0, min: 0, max: 5 },
     reviews: [{ type: Schema.Types.ObjectId, ref: 'Review' }],
-    // images: [{ type: String }],
+    media: [
+        {
+            url: { type: String, required: true },
+            public_id: { type: String, default: '' },
+            type: { type: String, enum: ['image', 'video', 'youtube'], required: true },
+        },
+    ],
 }, { timestamps: true })
 
 

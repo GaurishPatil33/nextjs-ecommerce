@@ -29,14 +29,14 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen">
-      <div className="h-full">
-        <AdminSidebar />
-      </div>
-      <div className="flex-1">
-        {/* Optional AdminHeader */}
-        <main className="p-4">{children}</main>
-      </div>
+        <div className="flex min-h-screen bg-gray-50">
+      {/* Sidebar Component */}
+      <AdminSidebar />
+      
+      {/* Main Content */}
+      <main className="flex-1 transition-all duration-300">
+        {children}
+      </main>
     </div>
   );
 }

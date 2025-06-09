@@ -18,6 +18,11 @@ interface ProductInterface {
   discountPercentage: number;
   stock: number;
   images: string[];
+  media: {
+    url: string;
+    public_id: string;
+    type: string;
+  }[];
   category: string;
   description: string;
   reviews: Review[];

@@ -78,7 +78,7 @@ const CheckoutPage = () => {
         </h1>
 
         {isOrderPlaced ? (
-          <div className="text-green-600  text-lg md:text-xl font-medium">
+          <div className="text-green-600  text-center text-lg md:text-xl font-medium">
             Thank you for your order! 🎉
             <br /> Redirecting to home...
           </div>

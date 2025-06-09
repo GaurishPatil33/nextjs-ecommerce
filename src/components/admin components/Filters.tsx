@@ -64,7 +64,6 @@ const Filters: React.FC<FiltersProps> = ({
 
   const handleClear = () => {
     setLocalFilters({});
-    onClose();
   };
 
   const handleApply = () => {
@@ -76,9 +75,10 @@ const Filters: React.FC<FiltersProps> = ({
     <div>
       <AnimatePresence>
         {isOpen && (
-          <motion.div className="w-full h-full" onClick={onClose}>
+          <>
+            <motion.div className="fixed inset-0 " onClick={onClose} />
             <motion.div
-              className="fixed top-0 right-0 max-h-max max-w-max bg-white shadow-lg p-6 flex flex-col "
+              className="fixed top-37 right-5 max-h-max max-w-max bg-white shadow-lg p-6 flex flex-col "
               initial="hidden"
               animate="visible"
               exit={"hidden"}
@@ -128,7 +128,7 @@ const Filters: React.FC<FiltersProps> = ({
                 </button>
               </div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </div>

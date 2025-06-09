@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import MediaUploader from "./MediaUpload";
 
 interface Review {
   userId: string;
@@ -17,6 +19,11 @@ interface ProductInterface {
   discountPercentage: number;
   stock: number;
   images: string[];
+  media: {
+    url: string;
+    public_id: string;
+    type: string;
+  }[];
   category: string;
   description: string;
   reviews: Review[];
@@ -33,6 +40,7 @@ interface ProductFormProps {
 
 const ProductForm = ({ product }: ProductFormProps) => {
   const isEdit = !!product?._id;
+  const route = useRouter();
 
   const [title, setTitle] = useState(product?.title || "");
   const [description, setDescription] = useState(product?.description || "");
@@ -43,9 +51,9 @@ const ProductForm = ({ product }: ProductFormProps) => {
   const [stock, setStock] = useState(product?.stock || "");
   const [brand, setBrand] = useState(product?.brand || "");
   const [category, setCategory] = useState(product?.category || "");
-  // const [rating, setRating] = useState(product?.rating || "");
-  //   const [thumbnail, setThumbnail] = useState(product?.thumbnail || "");
-  // const [images, setImages] = useState<string[]>(product?.images || []);
+  const [media, setMedia] = useState<ProductInterface["media"]>(
+    product?.media || []
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,7 +65,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
       category,
       description,
       stock,
-      // images,
+      media,
     };
     try {
       console.log(data);
@@ -65,6 +73,7 @@ const ProductForm = ({ product }: ProductFormProps) => {
         await axios.put("/api/product", { ...data, _id: product._id });
       } else {
         await axios.post("/api/product", data);
+        route.push("/admin/products");
       }
     } catch (err) {
       console.error("Error:", err);
@@ -80,13 +89,11 @@ const ProductForm = ({ product }: ProductFormProps) => {
       setDiscountPercentage(product.discountPercentage || "");
       setStock(product.stock || "");
       setCategory(product.category || "");
-      // setImages(product.images || []);
+      setMedia(product.media || []);
       // setLoading(false);
     }
     console.log("product", product);
   }, [product]);
-
-  const uploadImages = async () => {};
 
   // if (loading) {
   //   return (
@@ -138,6 +145,8 @@ const ProductForm = ({ product }: ProductFormProps) => {
         <input
           type="number"
           name="price"
+          min={0}
+          step={0.01}
           placeholder="Product price"
           value={price}
           onChange={(e) => setPrice(+e.target.value)}
@@ -147,6 +156,8 @@ const ProductForm = ({ product }: ProductFormProps) => {
         <input
           type="number"
           name="discount"
+          min={0}
+          step={0.01}
           placeholder="Discount percentage"
           value={discountPercentage}
           onChange={(e) => setDiscountPercentage(+e.target.value)}
@@ -163,18 +174,10 @@ const ProductForm = ({ product }: ProductFormProps) => {
           required
         />
         <div className="">
-          <div className="block mb-1 font-medium">Product Images</div>
-          <input type="file" multiple onChange={uploadImages} />
-          {/* <div className="flex flex-wrap gap-2 mt-2">
-            {images.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={title + (i + 1)}
-                className="w-20 h-20 object-cover border rounded"
-              />
-            ))}
-          </div> */}
+          <div className=" mb-1 font-medium">
+            Product media (Images,Videos,YoutubeURL)
+          </div>
+          <MediaUploader media={media} onChange={setMedia} />
         </div>
         <button
           type="submit"

@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
     "@mantine/core": "^7.17.5",
     "@mantine/hooks": "^7.17.5",
     "@radix-ui/react-checkbox": "^1.2.3",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.6.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.12.2",
     "lucide-react": "^0.503.0",
@@ -26,6 +30,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "recharts": "^2.15.3",
     "tailwind-merge": "^3.2.0",
     "zustand": "^5.0.3"
   },
