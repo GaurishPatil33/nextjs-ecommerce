@@ -22,7 +22,7 @@ interface ProductInterface {
   media: {
     url: string;
     public_id: string;
-    type: string;
+    type?: string;
   }[];
   category: string;
   description: string;
@@ -73,8 +73,8 @@ const ProductForm = ({ product }: ProductFormProps) => {
         await axios.put("/api/product", { ...data, _id: product._id });
       } else {
         await axios.post("/api/product", data);
-        route.push("/admin/products");
       }
+      route.push("/admin/products");
     } catch (err) {
       console.error("Error:", err);
     }
@@ -174,10 +174,14 @@ const ProductForm = ({ product }: ProductFormProps) => {
           required
         />
         <div className="">
-          <div className=" mb-1 font-medium">
+          <div className=" mb-2 font-medium">
             Product media (Images,Videos,YoutubeURL)
           </div>
-          <MediaUploader media={media} onChange={setMedia} />
+          <MediaUploader
+            media={media}
+            onChange={setMedia}
+            types={["image", "video"]}
+          />
         </div>
         <button
           type="submit"

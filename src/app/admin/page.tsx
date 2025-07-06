@@ -29,6 +29,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
+import StatsCard from "@/components/admin components/StatsCard";
 
 // Type definitions
 interface SalesData {
@@ -58,15 +59,6 @@ interface TopProduct {
   sales: number;
   revenue: string;
   trend: "up" | "down";
-}
-
-interface StatCardProps {
-  title: string;
-  value: string;
-  change: string;
-  icon: LucideIcon;
-  trend: "up" | "down";
-  color?: "blue" | "green" | "purple" | "orange" | "red";
 }
 
 type TimePeriod = "24h" | "7d" | "30d" | "90d";
@@ -162,56 +154,6 @@ const Dashboard: React.FC = () => {
     { name: "Apple Watch", sales: 145, revenue: "$36,250", trend: "up" },
   ];
 
-  const StatCard: React.FC<StatCardProps> = ({
-    title,
-    value,
-    change,
-    icon: Icon,
-    trend,
-    color = "blue",
-  }) => {
-    const colorClasses: Record<string, string> = {
-      blue: "from-blue-500 to-blue-600",
-      green: "from-green-500 to-green-600",
-      purple: "from-purple-500 to-purple-600",
-      orange: "from-orange-500 to-orange-600",
-      red: "from-red-500 to-red-600",
-    };
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.02 }}
-        className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-all duration-200"
-      >
-        <div className="flex items-center justify-between mb-4">
-          <div
-            className={`p-3 rounded-lg bg-gradient-to-r ${colorClasses[color]} text-white`}
-          >
-            <Icon size={24} />
-          </div>
-          <div
-            className={`flex items-center space-x-1 text-sm font-medium ${
-              trend === "up" ? "text-green-600" : "text-red-500"
-            }`}
-          >
-            {trend === "up" ? (
-              <ArrowUpRight size={16} />
-            ) : (
-              <ArrowDownRight size={16} />
-            )}
-            <span>{change}</span>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-1">{value}</h3>
-          <p className="text-gray-600 text-sm">{title}</p>
-        </div>
-      </motion.div>
-    );
-  };
-
   const getStatusColor = (status: OrderStatus): string => {
     switch (status) {
       case "completed":
@@ -261,7 +203,8 @@ const Dashboard: React.FC = () => {
                 Dashboard
               </h1>
               <p className="text-gray-600">
-                Welcome back! Here&rsquo;s what&rsquo;s happening with your store.
+                Welcome back! Here&rsquo;s what&rsquo;s happening with your
+                store.
               </p>
             </div>
             <div className="flex items-center space-x-4 mt-4 md:mt-0">
@@ -291,8 +234,8 @@ const Dashboard: React.FC = () => {
         </motion.div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <StatsCard
             title="Total Revenue"
             value="$45,239"
             change="+12.5%"
@@ -300,7 +243,7 @@ const Dashboard: React.FC = () => {
             trend="up"
             color="blue"
           />
-          <StatCard
+          <StatsCard
             title="Total Orders"
             value="1,429"
             change="+8.2%"
@@ -308,7 +251,7 @@ const Dashboard: React.FC = () => {
             trend="up"
             color="green"
           />
-          <StatCard
+          <StatsCard
             title="Total Customers"
             value="2,156"
             change="+5.7%"
@@ -316,7 +259,7 @@ const Dashboard: React.FC = () => {
             trend="up"
             color="purple"
           />
-          <StatCard
+          <StatsCard
             title="Total Products"
             value="348"
             change="-2.1%"

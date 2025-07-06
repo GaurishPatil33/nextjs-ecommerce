@@ -16,8 +16,14 @@ import {
   Truck,
   CreditCard,
   MessageSquare,
+  Folder,
+  Folders,
+  Grid,
+  Boxes,
+  Layers,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SubmenuItem {
   id: string;
@@ -32,14 +38,102 @@ interface MenuItem {
   path: string;
   submenu?: SubmenuItem[];
 }
+const menuItems: MenuItem[] = [
+  { id: "dashboard", label: "Dashboard", icon: Home, path: "/admin" },
+  {
+    id: "products",
+    label: "Products",
+    icon: Package,
+    path: "/admin/products",
+    // submenu: [
+    //   { id: "all-products", label: "All Products", path: "/admin/products" },
+    //   {
+    //     id: "add-product",
+    //     label: "Add Product",
+    //     path: "/admin/products/new",
+    //   },
+    //   {
+    //     id: "categories",
+    //     label: "Categories",
+    //     path: "/admin/products/categories",
+    //   },
+    //   {
+    //     id: "inventory",
+    //     label: "Inventory",
+    //     path: "/admin/products/inventory",
+    //   },
+    // ],
+  },
+  {
+    id: "orders",
+    label: "Orders",
+    icon: ShoppingCart,
+    path: "/admin/orders",
+    // submenu: [
+    //   { id: "all-orders", label: "All Orders", path: "/admin/orders" },
+    //   { id: "pending", label: "Pending", path: "/admin/orders/pending" },
+    //   { id: "shipped", label: "Shipped", path: "/admin/orders/shipped" },
+    // ],
+  },
+  {
+    id: "categories",
+    label: "Categories",
+    icon: Boxes,
+    path: "/admin/categories",
+  },
+  {
+    id: "customers",
+    label: "Customers",
+    icon: Users,
+    path: "/admin/customers",
+  },
+  {
+    id: "analytics",
+    label: "Analytics",
+    icon: BarChart3,
+    path: "/admin/analytics",
+  },
+  { id: "coupons", label: "Coupons", icon: Tag, path: "/admin/coupons" },
+  { id: "shipping", label: "Shipping", icon: Truck, path: "/admin/shipping" },
+  {
+    id: "payments",
+    label: "Payments",
+    icon: CreditCard,
+    path: "/admin/payments",
+  },
+  {
+    id: "reviews",
+    label: "Reviews",
+    icon: MessageSquare,
+    path: "/admin/reviews",
+  },
+  {
+    id: "settings",
+    label: "Settings",
+    icon: Settings,
+    path: "/admin/settings",
+  },
+];
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [activeItem, setActiveItem] = useState("dashboard");
   const [expandedSections, setExpandedSections] = useState<
     Record<string, boolean>
   >({});
+
+  const [activeItem, setActiveItem] = useState("");
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const current = [...menuItems]
+      .sort((a, b) => b.path.length - a.path.length)
+      .find((m) => pathname.startsWith(m.path));
+
+    if (current) {
+      setActiveItem(current.id);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -55,77 +149,6 @@ const Sidebar = () => {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
-
-  const menuItems: MenuItem[] = [
-    { id: "dashboard", label: "Dashboard", icon: Home, path: "/admin" },
-    {
-      id: "products",
-      label: "Products",
-      icon: Package,
-      path: "/admin/products",
-      // submenu: [
-      //   { id: "all-products", label: "All Products", path: "/admin/products" },
-      //   {
-      //     id: "add-product",
-      //     label: "Add Product",
-      //     path: "/admin/products/new",
-      //   },
-      //   {
-      //     id: "categories",
-      //     label: "Categories",
-      //     path: "/admin/products/categories",
-      //   },
-      //   {
-      //     id: "inventory",
-      //     label: "Inventory",
-      //     path: "/admin/products/inventory",
-      //   },
-      // ],
-    },
-    {
-      id: "orders",
-      label: "Orders",
-      icon: ShoppingCart,
-      path: "/admin/orders",
-      submenu: [
-        { id: "all-orders", label: "All Orders", path: "/admin/orders" },
-        { id: "pending", label: "Pending", path: "/admin/orders/pending" },
-        { id: "shipped", label: "Shipped", path: "/admin/orders/shipped" },
-      ],
-    },
-    {
-      id: "customers",
-      label: "Customers",
-      icon: Users,
-      path: "/admin/customers",
-    },
-    {
-      id: "analytics",
-      label: "Analytics",
-      icon: BarChart3,
-      path: "/admin/analytics",
-    },
-    { id: "coupons", label: "Coupons", icon: Tag, path: "/admin/coupons" },
-    { id: "shipping", label: "Shipping", icon: Truck, path: "/admin/shipping" },
-    {
-      id: "payments",
-      label: "Payments",
-      icon: CreditCard,
-      path: "/admin/payments",
-    },
-    {
-      id: "reviews",
-      label: "Reviews",
-      icon: MessageSquare,
-      path: "/admin/reviews",
-    },
-    {
-      id: "settings",
-      label: "Settings",
-      icon: Settings,
-      path: "/admin/settings",
-    },
-  ];
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -157,7 +180,7 @@ const Sidebar = () => {
   return (
     <>
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 px-4 py-3 flex items-center justify-between mb-2">
         <button
           onClick={toggleSidebar}
           className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-105 active:scale-95"
@@ -178,15 +201,15 @@ const Sidebar = () => {
       {/* Mobile Overlay */}
       {isMobile && isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/20 bg-opacity-50 z-40 md:hidden transition-opacity duration-300"
           onClick={toggleSidebar}
         />
       )}
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-0 h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white z-50 shadow-2xl transition-transform duration-300 ease-in-out ${
-          isMobile ? "w-72" : "w-64"
+        className={`fixed left-0 top-0 h-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white z-60 shadow-2xl transition-transform duration-300 ease-in-out ${
+          isMobile ? "w-72" : "w-60"
         } ${
           isOpen
             ? "translate-x-0"
@@ -219,18 +242,15 @@ const Sidebar = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="p-4 border-b border-slate-700/50">
-          <button
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2.5 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:scale-102 active:scale-98 hover:shadow-xl"
-            onClick={() => setIsOpen(false)}
-          >
-            <Plus size={16} />
+        <Link href={"/admin/products/new"}>
+          <div className="p-4 border-b border-slate-700/50">
+            <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2.5 px-4 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:scale-102 active:scale-98 hover:shadow-xl">
+              <Plus size={16} />
 
-            <Link href={"/admin/products/new"}>
               <span>Add Product</span>
-            </Link>
-          </button>
-        </div>
+            </button>
+          </div>
+        </Link>
 
         {/* Navigation Menu */}
         <nav className="flex-1 overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">

@@ -27,7 +27,7 @@ export async function DELETE(req: Request) {
     const { public_id } = await req.json()
 
     if (!public_id) {
-        return new Response("missing public_ic", { status: 400 })
+        return new Response("missing public_id", { status: 400 })
     }
     try {
         const res = await cloudinary.uploader.destroy(public_id)
