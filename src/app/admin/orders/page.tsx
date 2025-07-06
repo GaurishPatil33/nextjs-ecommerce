@@ -427,7 +427,7 @@ const OrdersPage = () => {
       // setDeleteProduct(undefined);
       // setShowConfirm(false);
       // fetchProducts();
-      setOrders((prev) => prev.filter((p: any) => p.id !== deleteOrder.id));
+      setOrders((prev) => prev.filter((p) => p.id !== deleteOrder.id));
       setShowConfirm(false);
     } catch (err) {
       console.error("Error deleting...", err);

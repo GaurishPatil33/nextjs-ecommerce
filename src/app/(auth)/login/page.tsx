@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
+import Error from "next/error";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -53,12 +54,18 @@ const LoginPage = () => {
       } else {
         setErrors({ general: "Something went wrong, Please try again. " });
       }
-    } catch (err:FormErrors|any) {
-      setErrors({
-        general:
-          err.response?.data?.message || "Login failed. Please try again.",
-      });
-      console.log(err);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setErrors({
+          general:
+            err.response?.data?.message || "Login failed. Please try again.",
+        });
+      } else {
+        setErrors({
+          general: "An unexpected error occurred.",
+        });
+      }
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
@@ -163,7 +170,7 @@ const LoginPage = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? <Eye/> : <EyeClosed/>}
+                  {showPassword ? <Eye /> : <EyeClosed />}
                 </button>
               </div>
               {errors.password && (
