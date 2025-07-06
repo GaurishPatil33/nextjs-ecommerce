@@ -90,12 +90,14 @@ const RegisterPage = () => {
     setErrors({});
     setIsLoading(true);
 
-    // const data = {
-    //   firstName: formData.firstName,
-    //   lastName: formData.lastName,
-    //   email: formData.email,
-    // };
-    const { confirmPassword, ...data } = formData;
+    const data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      phone: formData.phone,
+    };
+    // const { confirmPassword, ...data } = formData;
     try {
       const res = await axios.post("/api/auth/register", data);
       if (res.status === 200 || res.status === 201) {

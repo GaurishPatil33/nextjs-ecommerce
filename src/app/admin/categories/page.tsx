@@ -531,6 +531,12 @@ const CategoriesPage = () => {
           </div>
         </div>
       )}
+      
+      {error && (
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center text-red-500">{error}</div>
+        </div>
+      )}
 
       {categories.length > 0 && (
         <div className="grid gap-4">

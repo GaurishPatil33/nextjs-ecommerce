@@ -263,7 +263,7 @@ const OrdersPage = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteOrder, setDeleteOrder] = useState<Order>();
   const [showOrdercard, setShowOrderCard] = useState(false);
-  const [displayOrderCard, setDisplayOrderCard] = useState<Order|any >(null);
+  const [displayOrderCard, setDisplayOrderCard] = useState<Order >();
 
   const filterConfig: FilterConfig[] = [
     {
@@ -411,8 +411,8 @@ const OrdersPage = () => {
   };
 
   const closeViewDetails = () => {
-    setDisplayOrderCard(null);
-    setTimeout(() => setDisplayOrderCard(null), 300);
+    setDisplayOrderCard(undefined);
+    setTimeout(() => setDisplayOrderCard(undefined), 300);
   };
 
   const confirmDelete = (order: Order) => {
@@ -438,7 +438,7 @@ const OrdersPage = () => {
     order,
     onClose,
   }: {
-    order: Order;
+    order?: Order;
     onClose: () => void;
   }) => {
     if (!order) return null;
