@@ -297,7 +297,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
   );
 };
 
-const page = () => {
+const CategoriesPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -404,9 +404,9 @@ const page = () => {
   };
 
   // Get children categories
-  const getChildrenCategories = (parentId: string): Category[] => {
-    return categories.filter((cat) => cat.parentId === parentId);
-  };
+  // const getChildrenCategories = (parentId: string): Category[] => {
+  //   return categories.filter((cat) => cat.parentId === parentId);
+  // };
 
   // Check if category has children
   const hasChildren = (categoryId: string): boolean => {
@@ -427,26 +427,26 @@ const page = () => {
   };
 
   // Get available parent categories (excluding self and descendants)
-  const getAvailableParents = (): Category[] => {
-    if (!editingCategory) return categories;
+  // const getAvailableParents = (): Category[] => {
+  //   if (!editingCategory) return categories;
 
-    const getAllDescendantIds = (parentId: string): string[] => {
-      const children = categories.filter((cat) => cat.parentId === parentId);
-      let allIds = children.map((cat) => cat._id);
+  //   const getAllDescendantIds = (parentId: string): string[] => {
+  //     const children = categories.filter((cat) => cat.parentId === parentId);
+  //     let allIds = children.map((cat) => cat._id);
 
-      for (const child of children) {
-        allIds = [...allIds, ...getAllDescendantIds(child._id)];
-      }
+  //     for (const child of children) {
+  //       allIds = [...allIds, ...getAllDescendantIds(child._id)];
+  //     }
 
-      return allIds;
-    };
+  //     return allIds;
+  //   };
 
-    const excludedIds = [
-      editingCategory._id,
-      ...getAllDescendantIds(editingCategory._id),
-    ];
-    return categories.filter((cat) => !excludedIds.includes(cat._id));
-  };
+  //   const excludedIds = [
+  //     editingCategory._id,
+  //     ...getAllDescendantIds(editingCategory._id),
+  //   ];
+  //   return categories.filter((cat) => !excludedIds.includes(cat._id));
+  // };
 
   // Build hierarchical structure
   const buildHierarchy = useMemo(() => {
@@ -717,4 +717,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CategoriesPage;

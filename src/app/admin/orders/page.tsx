@@ -255,7 +255,7 @@ const getStatusConfig = (status: Order["status"]) => {
   return configs[status] || configs.processing;
 };
 
-const page = () => {
+const OrdersPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<Record<string, string | string[]>>({});
@@ -338,7 +338,6 @@ const page = () => {
         (order.tracking &&
           order.tracking.toLowerCase().includes(searchTerm.toLowerCase()));
 
-      // Filter by Status
       const matchStatus =
         !filters["Status"] ||
         filters["Status"].length === 0 ||
@@ -346,7 +345,6 @@ const page = () => {
           ? filters["Status"].includes(order.status)
           : filters["Status"] === order.status);
 
-      // Filter by Shipping Method
       const matchShipping =
         !filters["Shipping Method"] ||
         filters["Shipping Method"].length === 0 ||
@@ -354,7 +352,7 @@ const page = () => {
           ? filters["Shipping Method"].includes(order.shipping.method)
           : filters["Shipping Method"] === order.shipping.method);
 
-      // Filter by Payment Method
+     
       const matchPayment =
         !filters["Payment Method"] ||
         filters["Payment Method"].length === 0 ||
@@ -877,4 +875,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OrdersPage;

@@ -52,7 +52,7 @@ const LoginPage = () => {
       } else {
         setErrors({ general: "Something went wrong, Please try again. " });
       }
-    } catch (err: any) {
+    } catch (err:any|FormErrors) {
       setErrors({
         general:
           err.response?.data?.message || "Login failed. Please try again.",
@@ -200,7 +200,7 @@ const LoginPage = () => {
 
             <div className="text-center">
               <p className="text-sm text-gray-600">
-                Don't have an account?
+                Don&apos;t have an account?
                 <Link href={`/register`}>
                   <button
                     type="button"

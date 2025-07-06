@@ -19,11 +19,7 @@ import {
   Upload,
   Image,
   Video,
-  GripVertical,
-  Play,
-  X,
   Youtube,
-  Trash,
   Trash2,
 } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
@@ -42,10 +38,10 @@ interface MediaUploaderProps {
 
 const SortableMedia = ({
   item,
-  onRemove,
+  // onRemove,
 }: {
   item: Media;
-  onRemove?: () => void;
+  // onRemove?: () => void;
 }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.url });

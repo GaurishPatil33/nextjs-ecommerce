@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import { Eye, EyeClosed, EyeOff } from "lucide-react";
 
 interface FormData {
   email: string;
@@ -102,7 +103,7 @@ const RegisterPage = () => {
       } else {
         setErrors({ general: "Something went wrong, Please try again. " });
       }
-    } catch (err: any) {
+    } catch (err: any|FormErrors) {
       setErrors({
         general:
           err.response?.data?.message ||
@@ -270,8 +271,8 @@ const RegisterPage = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
+                  {showPassword ? <Eye/> : <EyeOff/>}
+              </button>
               </div>
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>
@@ -309,7 +310,7 @@ const RegisterPage = () => {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {showConfirmPassword ? "🙈" : "👁️"}
+                  {showConfirmPassword ? <Eye/> : <EyeOff/>}
                 </button>
               </div>
               {errors.confirmPassword && (
@@ -333,7 +334,7 @@ const RegisterPage = () => {
                     Processing...
                   </div>
                 ) : (
-                  <>✨ Create Account'</>
+                  <>✨ Create Account</>
                 )}
               </button>
             </div>

@@ -8,8 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
   Edit,
-  Edit3,
-  Eye,
+ 
   Filter,
   Grid3X3,
   List,
@@ -20,7 +19,7 @@ import {
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import FilterPanel from "@/components/admin components/Filters";
 
 interface Review {
