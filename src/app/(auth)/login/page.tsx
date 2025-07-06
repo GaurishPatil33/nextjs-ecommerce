@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { Eye, EyeClosed } from "lucide-react";
-import Error from "next/error";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
