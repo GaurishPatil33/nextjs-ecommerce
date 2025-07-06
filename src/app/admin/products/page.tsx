@@ -8,7 +8,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronDown,
   Edit,
- 
   Filter,
   Grid3X3,
   List,
@@ -19,8 +18,9 @@ import {
   Trash2,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import FilterPanel from "@/components/admin components/Filters";
+import { useRouter } from "next/navigation";
 
 interface Review {
   userId: string;
@@ -72,6 +72,7 @@ const ProductPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [showFilters, setShowFilters] = useState(false);
+  const router = useRouter();
 
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [showConfirm, setShowConfirm] = useState(false);
@@ -189,7 +190,6 @@ const ProductPage = () => {
       match &&= selectedStatus.includes(status);
     }
 
-
     if (selectedPrice) {
       if (selectedPrice.includes("+")) {
         const min = parseFloat(selectedPrice.replace("+", ""));
@@ -202,7 +202,7 @@ const ProductPage = () => {
 
     const selectedStock = Array.isArray(filters.stock)
       ? filters.stock
-      : [filters.stock].filter(Boolean); 
+      : [filters.stock].filter(Boolean);
 
     if (selectedStock.length > 0) {
       match &&= selectedStock.some((s) =>
@@ -289,14 +289,17 @@ const ProductPage = () => {
         </div>
 
         <div className="flex space-x-2 pt-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex-1 bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition-colors text-sm flex items-center justify-center gap-1"
-          >
-            <Edit size={14} />
-            Edit
-          </motion.button>
+          {/* <Link> */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex-1 bg-blue-500 text-white py-2 px-3 rounded-lg hover:bg-blue-600 transition-colors text-sm flex items-center justify-center gap-1"
+              onClick={() => router.push(`/admin/products/${product._id}`)}
+            >
+              <Edit size={14} />
+              Edit
+            </motion.button>
+          {/* </Link> */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
