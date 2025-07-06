@@ -321,7 +321,7 @@ const CategoriesPage = () => {
       setCategories(res.data);
       console.log(res.data);
     } catch (err) {
-      console.error("Error fetching categories:", error);
+      console.error("Error fetching categories:", err);
       setError("Failed to load categories");
     } finally {
       setLoading(false);
@@ -425,28 +425,6 @@ const CategoriesPage = () => {
       return newSet;
     });
   };
-
-  // Get available parent categories (excluding self and descendants)
-  // const getAvailableParents = (): Category[] => {
-  //   if (!editingCategory) return categories;
-
-  //   const getAllDescendantIds = (parentId: string): string[] => {
-  //     const children = categories.filter((cat) => cat.parentId === parentId);
-  //     let allIds = children.map((cat) => cat._id);
-
-  //     for (const child of children) {
-  //       allIds = [...allIds, ...getAllDescendantIds(child._id)];
-  //     }
-
-  //     return allIds;
-  //   };
-
-  //   const excludedIds = [
-  //     editingCategory._id,
-  //     ...getAllDescendantIds(editingCategory._id),
-  //   ];
-  //   return categories.filter((cat) => !excludedIds.includes(cat._id));
-  // };
 
   // Build hierarchical structure
   const buildHierarchy = useMemo(() => {

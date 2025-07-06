@@ -133,67 +133,7 @@ const ListingPage = () => {
     sort,
   ]);
 
-  // useEffect(() => {
-  //   let filtered = [...products];
-
-  //   if (brand) {
-  //     console.log(brand);
-  //     filtered = filtered.filter((p) => brand.includes(p.brand));
-  //     // filtered = filtered.filter((p) => p.brand === brand);
-  //   }
-  //   if (category) {
-  //     filtered = filtered.filter((p) => p.category === category);
-  //   }
-
-  //   // if (categories.length>0) {
-  //   //   setCategoriesSet(categories)
-  //   // }
-  //   if (minPrice || maxPrice) {
-  //     filtered = filtered.filter(
-  //       (p) => p.price >= minPrice && p.price <= maxPrice
-  //     );
-  //   }
-
-  //   if (rating) {
-  //     filtered = filtered.filter((p) => (p.rating || 0) >= rating);
-  //   }
-
-  //   if (discount) {
-  //     filtered = filtered.filter(
-  //       (p) => (p.discountPercentage || 0) >= discount
-  //     );
-  //   }
-
-  //   if (sort) {
-  //     switch (sort) {
-  //       case "price-asc":
-  //         filtered.sort((a, b) => a.price - b.price);
-  //         break;
-  //       case "price-desc":
-  //         filtered.sort((a, b) => b.price - a.price);
-  //         break;
-  //       case "rating-asc":
-  //         filtered.sort((a, b) => (a.rating || 0) - (b.rating || 0));
-  //         break;
-  //       case "rating-desc":
-  //         filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-  //         break;
-  //     }
-  //   }
-
-  //   setFilterProducts(filtered);
-  // }, [
-  //   products,
-  //   category,
-  //   // categories,
-  //   brand,
-  //   minPrice,
-  //   maxPrice,
-  //   rating,
-  //   discount,
-  //   sort,
-  // ]);
-
+  
   return (
     <div className="relative px-4 md:px-6 lg:px-16 xl:px-32 mb-2">
       <h1 className=" text-xl font-semibold">

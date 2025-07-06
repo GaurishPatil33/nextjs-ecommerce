@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
+import { Eye,  EyeOff } from "lucide-react";
 
 interface FormData {
   email: string;

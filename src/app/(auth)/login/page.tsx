@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -52,7 +53,7 @@ const LoginPage = () => {
       } else {
         setErrors({ general: "Something went wrong, Please try again. " });
       }
-    } catch (err:any|FormErrors) {
+    } catch (err:FormErrors|any) {
       setErrors({
         general:
           err.response?.data?.message || "Login failed. Please try again.",
@@ -162,7 +163,7 @@ const LoginPage = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                 >
-                  {showPassword ? "🙈" : "👁️"}
+                  {showPassword ? <Eye/> : <EyeClosed/>}
                 </button>
               </div>
               {errors.password && (

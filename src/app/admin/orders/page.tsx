@@ -20,7 +20,7 @@ import {
   User,
 } from "lucide-react";
 import StatsCard from "@/components/admin components/StatsCard";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo,  useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import FilterPanel from "@/components/admin components/Filters";
 import Confirmationbox from "@/components/Confirmationbox";
@@ -263,7 +263,7 @@ const OrdersPage = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteOrder, setDeleteOrder] = useState<Order>();
   const [showOrdercard, setShowOrderCard] = useState(false);
-  const [displayOrderCard, setDisplayOrderCard] = useState<Order | any>();
+  const [displayOrderCard, setDisplayOrderCard] = useState<Order|any >(null);
 
   const filterConfig: FilterConfig[] = [
     {
@@ -411,7 +411,7 @@ const OrdersPage = () => {
   };
 
   const closeViewDetails = () => {
-    setDisplayOrderCard(false);
+    setDisplayOrderCard(null);
     setTimeout(() => setDisplayOrderCard(null), 300);
   };
 
